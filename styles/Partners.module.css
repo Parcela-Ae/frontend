@@ -1,0 +1,34 @@
+.parceiros {
+    background-color: #cfdeff;
+    
+    padding: 3.75rem;
+  }
+  
+  .parceiros_title {
+    margin: 0 0 15px 15px;
+  }
+
+  .partnerContent{
+    display: flex;
+    justify-content:space-between;
+  }
+  
+  .descricao_parceiros {
+    color: #333333;
+  }
+  
+  /*duvidas*/
+  
+  .duvidas {
+    background-color: #DEF7F6;
+    padding: 60px;
+  }
+  
+  .duvidas_title {
+    margin: 0 0 1rem 1rem;
+  }
+  
+  .descricao_duvida {
+    font-weight: lighter;
+    color: #333333;
+  }

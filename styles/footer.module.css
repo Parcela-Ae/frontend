@@ -1,0 +1,52 @@
+#footer{
+  padding: 10px;
+  background-color: #142585;
+}
+
+#footer a, #footer p, #footer h4{
+  color: #f5f6f7;
+  font-weight: lighter;
+}
+
+.rede_social {
+  display: flex;
+}
+
+.footerContent{
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 2fr;
+  
+}
+
+.coluna {
+  margin: 10px;
+}
+
+.coluna p {
+  padding: 0.8rem 0;
+}
+
+.coluna h4{
+  margin-bottom: 0.3rem; 
+}
+
+.copy{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #CFDEFF;
+  padding: 0.6rem;
+}
+
+@media screen and (max-width: 745px){
+  .footerContent{
+    grid-template-columns: 1fr 1fr;
+    
+  }
+}
+@media screen and (max-width: 530px){
+  .footerContent{
+    grid-template-columns: 1fr;
+    
+  }
+}

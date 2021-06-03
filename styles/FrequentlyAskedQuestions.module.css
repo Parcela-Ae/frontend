@@ -1,0 +1,23 @@
+/*duvidas*/
+
+.duvidas {
+    background-color: #DEF7F6;
+    padding: 60px;
+  }
+  
+  .duvidas_title {
+    margin: 0 0 15px 15px;
+  }
+  
+  .descricao_duvida {
+    font-weight: lighter;
+    color: #333333;
+  }
+.container {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.content  h5{
+    margin-bottom: 0.8rem;
+}
