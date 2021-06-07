@@ -1,7 +1,10 @@
+import { useEffect } from 'react'
 import styles from '../../../styles/historic.module.css'
+import ClinicService from '../../services/clinic.service'
 
-export  default function Historic() {
+export  default function Test() {
     return (
+        
         <div className={styles.historic}>
             <div className={styles.content}>
                 <table>

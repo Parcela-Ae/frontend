@@ -1,4 +1,4 @@
-import styles from '../../../styles/balance.module.css';
+import styles from '../../../styles/balance.module.css'
 
 export function Balance() {
     return (
@@ -18,5 +18,5 @@ export function Balance() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

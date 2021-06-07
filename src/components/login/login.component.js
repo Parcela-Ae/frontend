@@ -1,12 +1,43 @@
 import styles from '../../../styles/login.module.css'
-import { Controller, useForm } from "react-hook-form"
-import InputMask from "react-input-mask"
+import { useForm } from "react-hook-form"
+import { toast, ToastContainer } from 'react-toastify'
+import User from '../../models/user.model'
+
+import AuthService from '../../services/auth.service'
+import 'react-toastify/dist/ReactToastify.css'
+import { useEffect, useState } from 'react'
+
+
 export default function Login() {
     const { register, handleSubmit, control, errors, watch } = useForm()
+    let [invalidUser, setInvalidUser] = useState(false)
+    let user = new User()
 
-    function onSubmit(data) {
-        console.log(data)
+    const loadAuth = (us) => {
+        AuthService.signin(us).then(async (datas) => {
+            if (datas.token) {
+                SessionService.login(datas)
+                setInvalidUser(false)
+                return
+            }
+
+            setInvalidUser(true)
+        }, (error) => {
+            console.error(error)
+        }
+        )
+
     }
+
+    async function onSubmit(data) {
+        user.email = data.email
+        user.password = data.password
+        loadAuth(user)
+    }
+
+    useEffect(() => {
+		
+	}, [])
     return (
         <main className={styles.login}>
             <div className={styles.container}>
@@ -47,10 +78,11 @@ export default function Login() {
                         <div className={styles.input}>
                             <button >Realizar Login</button>
                         </div>
+                        {invalidUser == true && <div className="error">Login e/ou Senha inválido</div>}
                     </div>
                 </form>
             </div>
         </main >
 
-    );
+    )
 }

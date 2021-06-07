@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from '../../../styles/FrequentlyAskedQuestions.module.css';
+import React from 'react'
+import styles from '../../../styles/FrequentlyAskedQuestions.module.css'
 export default function FrequentlyAskedQuestions() {
     return (
         <div className={styles.duvidas}>
@@ -36,5 +36,5 @@ export default function FrequentlyAskedQuestions() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

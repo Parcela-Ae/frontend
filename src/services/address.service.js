@@ -1,9 +1,9 @@
-import API from 'cers.api'
+import API from '../api/viacep.api'
 
-const AddressSerivce = {
+const AddressService = {
     searchByCEP: async(cep = "") =>{
-        return API.get("/address/cep",{cep})
+        return API.get(`${cep}/json/`)
     }
 }
 
-export default AddressSerivce
+export default AddressService

@@ -1,4 +1,4 @@
-import styles from '../../../styles/Partners.module.css';
+import styles from '../../../styles/partners.module.css'
 export default function Partners(){
     return(
         <div className={styles.parceiros}>
@@ -46,5 +46,5 @@ export default function Partners(){
 
         </div>
     </div>
-    );
+    )
 }

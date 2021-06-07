@@ -1,4 +1,4 @@
-import styles from '../../../styles/depositions.module.css';
+import styles from '../../../styles/depositions.module.css'
 export function Depositions() {
     return (
         <div className={styles.depoimentos}>
@@ -85,5 +85,5 @@ export function Depositions() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

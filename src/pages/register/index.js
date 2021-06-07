@@ -1,7 +1,7 @@
-import styles from '../../../styles/register.module.css';
-import { Footer } from '../../components/footer/footer.component';
-import { Header } from '../../components/header/header.component';
-import  Register  from '../../components/register/register.component';
+import styles from '../../../styles/register.module.css'
+import { Footer } from '../../components/footer/footer.component'
+import { Header } from '../../components/header/header.component'
+import  Register  from '../../components/register/register.component'
 
 
 
@@ -12,5 +12,5 @@ export default function register() {
             <Register />
             <Footer/>
         </div>
-    );
+    )
 }

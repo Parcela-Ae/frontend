@@ -2,36 +2,67 @@ import styles from '../../../styles/register.module.css'
 import { useForm, Controller } from 'react-hook-form'
 import InputMask from "react-input-mask"
 import { useState } from 'react'
+import Client from '../../models/client.model'
+import AddressService from '../../services/address.service'
+import ClientService from '../../services/client.service'
+import AuthService from '../../services/auth.service'
 export default function Register() {
     const { register, handleSubmit, control, errors, watch } = useForm()
+    const [validNumber, setValidNumber] = useState(false)
 
-    let [uf, setUf] = useState()
-    let [city, setCity] = useState()
-    let [district, setDistrict] = useState()
-    let [street, setStreet] = useState()
-    let [cep, setCep] = useState();
-    let [complement, setComplement] = useState()
-    let [number, setNumber] = useState()
+    let [uf, setUf] = useState("")
+    let [city, setCity] = useState("")
+    let [district, setDistrict] = useState("")
+    let [street, setStreet] = useState("")
+    let [cep, setCep] = useState("")
+    let [complement, setComplement] = useState("")
+    let [number, setNumber] = useState("")
 
-    function onSubmit(data) {
-        console.log(data)
+
+    let client = new Client()
+
+    async function onSubmit(data) {
+        client.user.name = data.name
+        client.cpf = data.cpf
+        client.user.email = data.email
+        client.user.password = data.password
+        client.address.cep = data.cep
+        client.address.city = data.city
+        client.address.complement = data.complement
+        client.address.district = data.district
+        client.address.number = data.number
+        client.address.street = data.street
+        client.address.uf = data.state
+        if (client.user.email) {
+            client.user.email.toLocaleLowerCase()
+        }
+        await ClientService.create(client).then(async () => {
+            await AuthService.signin(client.user).then(data => {
+
+                signIn('credentials', { email: data.clientId, password: data.token })
+            })
+        })
+
     }
 
-
     let fetchAddressByCEP = async (e) => {
-        // await AddressSerivce.searchByCEP(e.target.value).then((cep) => {
-        //     if (cep.state == null && cep.city == null && cep.street == null) {
-        //         setUf("")
-        //         setCity("")
-        //         setDistrict("")
-        //         setStreet("")
-        //         return null
-        //     }
-        //     setUf(cep.state)
-        //     setCity(cep.city)
-        //     setDistrict(cep.district)
-        //     setStreet(cep.street)
-        // })
+        if (e.target.value.length === 9) {
+            await AddressService.searchByCEP(e.target.value).then((cep) => {
+                if (cep.uf == null && cep.localidade == null && cep.logradouro == null) {
+                    setUf("")
+                    setCity("")
+                    setDistrict("")
+                    setStreet("")
+                    return null
+                }
+                setUf(cep.uf)
+                setCity(cep.localidade)
+                setDistrict(cep.bairro)
+                setStreet(cep.logradouro)
+            })
+        } 
+
+
     }
     return (
         <main className={styles.login}>
@@ -91,7 +122,7 @@ export default function Register() {
                                     rules={{
                                         required: "Campo obrigatório",
                                         pattern: {
-                                            
+
                                             value: /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/,
                                             message: "Digite um CPF válido",
                                         },
@@ -210,8 +241,8 @@ export default function Register() {
                                     <label htmlFor="number">Número *</label>
                                     <input type="text" id="number" name="number" aria-invalid={errors.number ? "true" : "false"} defaultValue={number}
                                         onChange={(e) => {
-                                            let inputTarget = e.target;
-                                            let nb = inputTarget.value;
+                                            let inputTarget = e.target
+                                            let nb = inputTarget.value
                                             if (nb.length == 0) {
                                                 setValidNumber(false)
                                             } else {
@@ -240,5 +271,5 @@ export default function Register() {
                 </form>
             </div >
         </main >
-    );
+    )
 }

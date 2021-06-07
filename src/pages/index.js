@@ -1,10 +1,10 @@
-import React from 'react';
-import styles from "../../styles/index.module.css";
-import { Depositions } from '../components/depositions/depositions.component';
-import { Footer } from '../components/footer/footer.component';
-import { Header } from '../components/header/header.component';
-import Partners from '../components/Partners/partners.component';
-import FrequentlyAskedQuestions from '../components/frequently-asked-questions/frequently-asked-questions.component';
+import React from 'react'
+import styles from "../../styles/index.module.css"
+import { Depositions } from '../components/depositions/depositions.component'
+import { Footer } from '../components/footer/footer.component'
+import { Header } from '../components/header/header.component'
+import Partners from '../components/partners/partners.component'
+import FrequentlyAskedQuestions from '../components/frequently-asked-questions/frequently-asked-questions.component'
 
 
 
@@ -32,5 +32,5 @@ export  default function Index() {
         <Footer />
         
         </>
-    );
+    )
 }

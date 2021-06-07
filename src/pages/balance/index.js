@@ -1,49 +1,49 @@
-import styles from '../../../styles/balance.module.css';
+import styles from '../../../styles/balance.module.css'
 
-import { Footer } from "../../components/footer/footer.component";
-import { Header } from "../../components/header/header.component";
+import { Footer } from "../../components/footer/footer.component"
+import { Header } from "../../components/header/header.component"
 
-import Historic from "../../components/historic/historic.component";
-import { useEffect, useState } from "react";
-import Recharge from "../../components/recharge/recharge.component";
-import Transfer from "../../components/transfer/transfer.component";
-import { Balance } from "../../components/balance/balance.component";
+import Historic from "../../components/historic/historic.component"
+import { useEffect, useState } from "react"
+import Recharge from "../../components/recharge/recharge.component"
+import Transfer from "../../components/transfer/transfer.component"
+import { Balance } from "../../components/balance/balance.component"
 
 
 
 export default  function balance (){
 
-    const [isBalance,setIsBalance]= useState(true);
-    const [isHistoric,setIsHistoric]= useState(false);
-    const [isRecharge,setIsReacharge]= useState(false);
-    const [isTransfer,setIsTransfer]= useState(false);
+    const [isBalance,setIsBalance]= useState(true)
+    const [isHistoric,setIsHistoric]= useState(false)
+    const [isRecharge,setIsReacharge]= useState(false)
+    const [isTransfer,setIsTransfer]= useState(false)
 
 
     function changeBalance(){
-        setIsBalance(true);
-        setIsReacharge(false);
-        setIsHistoric(false);
-        setIsTransfer(false);
+        setIsBalance(true)
+        setIsReacharge(false)
+        setIsHistoric(false)
+        setIsTransfer(false)
     }
 
     function changeRecharge(){
-        setIsReacharge(true);
-        setIsBalance(false);
-        setIsHistoric(false);
-        setIsTransfer(false);
+        setIsReacharge(true)
+        setIsBalance(false)
+        setIsHistoric(false)
+        setIsTransfer(false)
     }
 
     function changeHistoric(){
-        setIsHistoric(true);
-        setIsBalance(false);
-        setIsReacharge(false);
-        setIsTransfer(false);
+        setIsHistoric(true)
+        setIsBalance(false)
+        setIsReacharge(false)
+        setIsTransfer(false)
     }
     function changeTransfer(){
-        setIsTransfer(true);
-        setIsHistoric(false);
-        setIsBalance(false);
-        setIsReacharge(false);
+        setIsTransfer(true)
+        setIsHistoric(false)
+        setIsBalance(false)
+        setIsReacharge(false)
         
     }
 
@@ -67,5 +67,5 @@ export default  function balance (){
         </main>
             <Footer />
         </div>
-    );
+    )
 }

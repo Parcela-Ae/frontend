@@ -46,6 +46,10 @@ th{
   background-color: #A1BFFF;
 }
 
+.error{
+  color: rgba(246, 51, 51, 0.863);
+}
+
 /* input{
   outline: none;
   display: block;

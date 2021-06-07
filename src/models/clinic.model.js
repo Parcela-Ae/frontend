@@ -1,5 +1,5 @@
-import Address from "./address.model";
-import User from "./user.model";
+import Address from "./address.model"
+import User from "./user.model"
 
 export default class Clinic{
     constructor(id, cnpj,

@@ -1,6 +1,6 @@
 import styles from '../../../styles/home.module.css'
-import { Footer } from '../../components/footer/footer.component';
-import { Header } from '../../components/header/header.component';
+import { Footer } from '../../components/footer/footer.component'
+import { Header } from '../../components/header/header.component'
 
 export default function home() {
     return (
@@ -42,5 +42,5 @@ export default function home() {
             </div>
             <Footer />
         </div>
-    );
+    )
 }

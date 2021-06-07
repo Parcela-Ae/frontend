@@ -1,5 +1,5 @@
-import Link from 'next/Link';
-import styles from '../../../styles/Header.module.css';
+import Link from 'next/Link'
+import styles from '../../../styles/Header.module.css'
 export function Header() {
     return (
             <nav className={styles.navContainer}>
@@ -11,9 +11,10 @@ export function Header() {
                         <li className={styles.navContainerListItem}><Link  href="/login">Login</Link></li>
                         <li className={styles.navContainerListItem}><Link  href="/register">Cadastre-se</Link></li>
                         <li className={styles.navContainerListItem}><Link  href="/balance">Saldo</Link></li>
-                        <li className={styles.navContainerListItem}><a className="pink_bg" href="#">Você é uma clínica?</a></li>
+                        <li className={styles.navContainerListItem}><Link  href="/home">Clinicas</Link></li>
+                        {/* <li className={styles.navContainerListItem}><a className="pink_bg" href="#">Você é uma clínica?</a></li> */}
                     </ul>
                 </div>
             </nav>
-    );
+    )
 }

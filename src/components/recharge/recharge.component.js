@@ -41,5 +41,5 @@ export default function Recharge() {
             </form>
         </div>
 
-    );
+    )
 }
