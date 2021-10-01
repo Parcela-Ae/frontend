@@ -1,10 +1,8 @@
-import API from '../api'
-import Client from '../models/client.model'
-import Head from 'next/head'
+import API from '../Api/api'
 
 const ClientService = {
-	create: async(client = new Client()) => {
-		return await API.post('/clients/create',client)
+	create: async(client) => {
+		return await API.post('/customers',client)
 	},
 	existCpf: async (cpf) => {
 		return API.get(`/clients/cpf/${cpf}`)

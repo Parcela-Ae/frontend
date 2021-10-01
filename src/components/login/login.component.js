@@ -1,38 +1,19 @@
 import styles from '../../../styles/login.module.css'
 import { useForm } from "react-hook-form"
-import { toast, ToastContainer } from 'react-toastify'
-import User from '../../models/user.model'
 
-import AuthService from '../../services/auth.service'
 import 'react-toastify/dist/ReactToastify.css'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../../contexts/AuthContexts'
 
 
 export default function Login() {
     const { register, handleSubmit, control, errors, watch } = useForm()
+    const{ signIn,isAuthenticade } = useContext(AuthContext)
     let [invalidUser, setInvalidUser] = useState(false)
-    let user = new User()
-
-    const loadAuth = (us) => {
-        AuthService.signin(us).then(async (datas) => {
-            if (datas.token) {
-                SessionService.login(datas)
-                setInvalidUser(false)
-                return
-            }
-
-            setInvalidUser(true)
-        }, (error) => {
-            console.error(error)
-        }
-        )
-
-    }
-
+    
     async function onSubmit(data) {
-        user.email = data.email
-        user.password = data.password
-        loadAuth(user)
+        await signIn(data)
+        setInvalidUser(isAuthenticade)
     }
 
     useEffect(() => {
@@ -69,8 +50,8 @@ export default function Login() {
                                 ref={register({
                                     required: "Campo obrigatório",
                                     minLength: {
-                                        value: 6,
-                                        message: "Utilize no mínimo 6 caracteres"
+                                        value: 3,
+                                        message: "Utilize no mínimo 3 caracteres"
                                     }
                                 })} />
                             {errors.password && <span className="error">{errors.password.message}</span>}

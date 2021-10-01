@@ -14,8 +14,6 @@ export default function test() {
     }, [])
     return (
         <div className={styles.bg}>
-            <Header />
-            
         </div>
     )
 }

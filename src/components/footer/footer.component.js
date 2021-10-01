@@ -47,7 +47,7 @@ export function Footer() {
         </footer>
         <div className={styles.copy}>
                 <p>
-                    Made with love and coffe. © 2020
+                    Made Parcelaae. © 2021
                 </p>
             </div>
         </>

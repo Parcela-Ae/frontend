@@ -1,11 +1,11 @@
-import API from '../api'
+import API from '../Api/api'
 
 const AuthService = {
-    signin: async() =>{
-        return API.get("/products")
+    signIn: async(us) =>{
+        return API.post("/login", us)
     },
-    searchProducts: async() =>{
-        return API.get("/products")
+    profile: async() =>{
+        return API.get("/users/profile")
         
     },
     findOrders: async(order = "") =>{

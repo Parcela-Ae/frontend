@@ -1,4 +1,4 @@
-import API from '../api/viacep.api'
+import API from '../Api/viacep.api'
 
 const AddressService = {
     searchByCEP: async(cep = "") =>{

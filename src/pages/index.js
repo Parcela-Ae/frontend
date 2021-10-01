@@ -12,7 +12,6 @@ export  default function Index() {
     return (
         <>
         <header className={styles.container} >
-            <Header />
             <div className={styles.containerContent}>
                 <div className={styles.headerHome}>
                     <section>

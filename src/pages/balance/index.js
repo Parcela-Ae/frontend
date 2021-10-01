@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import Recharge from "../../components/recharge/recharge.component"
 import Transfer from "../../components/transfer/transfer.component"
 import { Balance } from "../../components/balance/balance.component"
+import { parseCookies } from 'nookies'
 
 
 
@@ -49,7 +50,6 @@ export default  function balance (){
 
     return(
         <div className={styles.bg}>
-            <Header />
             <main className={styles.saldo}>
             <div className={styles.container}>
 
@@ -68,4 +68,19 @@ export default  function balance (){
             <Footer />
         </div>
     )
+}
+
+export  async function getServerSideProps(ctx){
+    const {['parcelaAe.token']:token } = parseCookies(ctx)
+    if(!token){
+        return{
+            redirect:{
+                destination: "/login",
+                permanent: false
+            }
+        }
+    }
+    return{
+        props:{}
+    }
 }

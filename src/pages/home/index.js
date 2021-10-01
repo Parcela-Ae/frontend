@@ -1,3 +1,4 @@
+import { parseCookies } from 'nookies'
 import styles from '../../../styles/home.module.css'
 import { Footer } from '../../components/footer/footer.component'
 import { Header } from '../../components/header/header.component'
@@ -6,7 +7,6 @@ export default function home() {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <Header />
                 <main id={styles.home_logado}>
                     <div className="container">
                         <div>
@@ -43,4 +43,19 @@ export default function home() {
             <Footer />
         </div>
     )
+}
+
+export  async function getServerSideProps(ctx){
+    const {['parcelaAe.token']:token } = parseCookies(ctx)
+    if(!token){
+        return{
+            redirect:{
+                destination: "/login",
+                permanent: false
+            }
+        }
+    }
+    return{
+        props:{}
+    }
 }
