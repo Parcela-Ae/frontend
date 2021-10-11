@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import styles from '../../../styles/login.module.css'
-import { Header } from '../../components/header/header.component'
 import Test from '../../components/test/test.component'
 import Clinic from '../../models/clinic.model'
 import ClinicService from '../../services/clinic.service'

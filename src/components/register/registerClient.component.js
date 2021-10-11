@@ -5,6 +5,8 @@ import { useContext, useState } from 'react'
 import AddressService from '../../services/address.service'
 import ClientService from '../../services/client.service'
 import { AuthContext } from '../../contexts/AuthContexts'
+import { toast } from 'react-nextjs-toast'
+
 export default function RegisterClient() {
 
   const { register, handleSubmit, control, errors, watch, trigger } = useForm()
@@ -18,7 +20,6 @@ export default function RegisterClient() {
   let [cep, setCep] = useState("")
   let [complement, setComplement] = useState("")
   let [number, setNumber] = useState("")
-  let [cityId, setcityId] = useState("")
 
   async function onSubmit(data) {
 
@@ -39,17 +40,43 @@ export default function RegisterClient() {
       number: data.number,
       complement: data.complement,
       zipCode: data.cep,
-      cityId: cityId
+      city: data.city,
+      state: data.state,
     }
     
-    await ClientService.create(client).then(async () => {
-      let login = {
-        email: client.email,
-        password: client.password
-      }
-      await signIn(login)
-    })
+    await ClientService.create(client)
+      .then(async (e) => {
 
+        if (!e) {
+
+          toast.notify('Cadastro efetuado com sucesso!!', {
+            duration: 5,
+            type: "success",
+            title: ""
+          })
+
+          let login = {
+            email: client.email,
+            password: client.password
+          }
+          await signIn(login)
+
+        } else {
+          toast.notify(e.errors[0].message, {
+            duration: 5,
+            type: "error",
+            title: "error"
+          })
+        }
+
+      }).catch((error) => {
+
+        toast.notify(error.message, {
+          duration: 5,
+          type: "error",
+          title: "error"
+        })
+      })
   }
 
   const checkPhone = (value) => {
@@ -74,7 +101,6 @@ export default function RegisterClient() {
         setUf(cep.uf)
         setCity(cep.localidade)
         setStreet(cep.logradouro)
-        setcityId(cep.ibge)
       })
     }
   }

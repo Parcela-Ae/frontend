@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import styles from '../../../styles/register.module.css'
 import { Footer } from '../../components/footer/footer.component'
-import { Header } from '../../components/header/header.component'
 import RegisterClient from '../../components/register/registerClient.component'
 import RegisterClinic from '../../components/register/registerClinic.component'
 

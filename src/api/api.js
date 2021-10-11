@@ -44,7 +44,11 @@ const API = {
         result = await response.text()
         return JSON.parse(result)
       } catch (e) {
-        return result
+        toast.notify(e.message, {
+          duration: 5,
+          type: "error",
+          title: "error"
+      })
       }
     })
   },

@@ -6,6 +6,7 @@ import AddressService from '../../services/address.service'
 
 import { AuthContext } from '../../contexts/AuthContexts'
 import ClinicService from '../../services/clinic.service'
+import { toast } from 'react-nextjs-toast'
 
 export default function RegisterClinic() {
 
@@ -54,19 +55,44 @@ export default function RegisterClinic() {
       number: data.number,
       complement: data.complement,
       zipCode: data.cep,
-      cityId: cityId,
+      city: data.city,
+      state: data.state,
       specialties: data.specialties
     }
 
-    console.log(clinic)
-    await ClinicService.create(clinic).then(async () => {
-      let login = {
-        email: clinic.email,
-        password: clinic.password
-      }
-      await signIn(login)
-    })
+    await ClinicService.create(clinic)
+      .then(async (e) => {
 
+        if (!e) {
+
+          toast.notify('Cadastro efetuado com sucesso!!', {
+            duration: 5,
+            type: "success",
+            title: ""
+          })
+
+          let login = {
+            email: client.email,
+            password: client.password
+          }
+          await signIn(login)
+
+        } else {
+          toast.notify(e.errors[0].message, {
+            duration: 5,
+            type: "error",
+            title: "error"
+          })
+        }
+
+      }).catch((error) => {
+
+        toast.notify(error.message, {
+          duration: 5,
+          type: "error",
+          title: "error"
+        })
+      })
   }
 
   const checkPhone = (value) => {
@@ -244,7 +270,7 @@ export default function RegisterClinic() {
 
         </div>
         <div style={{ display: step === 2 ? 'block' : 'none' }}>
-        <div className={styles.inputDiv}>
+          <div className={styles.inputDiv}>
             <div className={styles.input}>
               <label htmlFor="phone1">Celular *</label>
               {errors.phone1 && <span className="error">{errors.phone1.message}</span>}
@@ -280,8 +306,9 @@ export default function RegisterClinic() {
               />
             </div>
           </div>
+
           <div className={styles.input}>
-            <label>Especializações *</label> 
+            <label>Especializações *</label>
             {errors.specialties && <span className="error">{errors.specialties.message}</span>}
             <select
               id="specialties"
@@ -295,7 +322,6 @@ export default function RegisterClinic() {
                 <option key={item.id} value={item.id}> {item.name}</option>
               ))}
             </select>
-            
           </div>
 
           <div className={styles.inputButton}>
@@ -311,8 +337,6 @@ export default function RegisterClinic() {
 
         <div style={{ display: step === 3 ? 'block' : 'none' }}>
 
-          
-
           <div className={styles.inputDiv}>
             <div className={styles.input}>
               <label htmlFor="cep">CEP *</label>
@@ -326,8 +350,8 @@ export default function RegisterClinic() {
                     value: 8,
                     message: "CEP deve ter no mínimo 8 caracteres"
                   },
-                }
-                } />
+                }}
+              />
 
             </div>
             <div className={styles.input}>

@@ -16,6 +16,7 @@
     "react-hook-form": "6.7.1",
     "react-input-mask": "^2.0.4",
     "react-next-paging": "^7.0.7",
+    "react-nextjs-toast": "^1.2.5",
     "react-toastify": "^7.0.4"
   },
   "devDependencies": {

@@ -20,9 +20,9 @@ export function Header() {
                     )}
                     {isAuthenticade && (
                         <>  
-                            <li className={styles.navContainerListItem}><Link href="/balance">Saldo</Link></li>
-                            <li className={styles.navContainerListItem}><Link href="/home">Clinicas</Link></li>
-                            <li className={`${styles.navContainerListItem} pink_bg`}>{user.name}</li>
+                            <li className={styles.navContainerListItem}><Link href="/home">Home</Link></li>
+                            <li className={styles.navContainerListItem}><Link href="/balance">Meus Créditos</Link></li>
+                            <li className={`${styles.navContainerListItem} pink_bg`}>Olá, {user.name.split(' ')[0]}</li>
                             <li className={styles.navContainerListItem}><a href="#" onClick={signOut}>Sair</a></li>
                         </>
                     )}

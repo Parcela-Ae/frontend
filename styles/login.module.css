@@ -1,6 +1,4 @@
-.container {
-    background-color: #E5E5E5;
-}
+
 
 /* main*/
 .bg {
@@ -21,12 +19,9 @@
     border-radius: 10px;
     
 }
-.content {
-    background-color: #DEF7F6;
-}
 
 .container {
-    background-color: #C2D5FF;
+    background-color: #d0e7ff9f;
   }
   
   .container h1 {

@@ -1,0 +1,39 @@
+/* main*/
+
+.container {
+  background: #DEF7F6;
+}
+
+.container h2 {
+  margin-left: 1rem;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.clinic {
+  background: #d0e7ff9f;
+  margin: 0 auto;
+  max-width: 800px;
+  max-height: auto;
+  border-radius: 10px;
+  padding: 0.5rem;
+}
+
+.div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.clinicItem {
+  margin-bottom: 1rem;
+}
+
+.clinicHeader {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+

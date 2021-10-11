@@ -8,17 +8,18 @@ import { AuthContext } from '../../contexts/AuthContexts'
 
 export default function Login() {
     const { register, handleSubmit, control, errors, watch } = useForm()
-    const{ signIn,isAuthenticade } = useContext(AuthContext)
+    const { signIn, isAuthenticade } = useContext(AuthContext)
     let [invalidUser, setInvalidUser] = useState(false)
+
+    useEffect(() => {
+
+    }, [])
     
     async function onSubmit(data) {
         await signIn(data)
         setInvalidUser(isAuthenticade)
     }
 
-    useEffect(() => {
-		
-	}, [])
     return (
         <main className={styles.login}>
             <div className={styles.container}>
@@ -57,7 +58,7 @@ export default function Login() {
                             {errors.password && <span className="error">{errors.password.message}</span>}
                         </div>
                         <div className={styles.input}>
-                            <button >Realizar Login</button>
+                            <button>Realizar Login</button>
                         </div>
                         {invalidUser == true && <div className="error">Login e/ou Senha inválido</div>}
                     </div>
