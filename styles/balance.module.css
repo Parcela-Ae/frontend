@@ -64,3 +64,9 @@
 .content {
     background-color: #d0e7ff9f;
 }
+
+/* @media screen and (max-width: 400px){
+    .container{
+        grid-template-columns: 1fr;
+    }
+  } */

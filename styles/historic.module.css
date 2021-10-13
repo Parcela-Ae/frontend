@@ -51,11 +51,13 @@
 
 
 .content table{
-    margin-left: 1rem;
+    padding: 0 0.7rem;
     font-size: 1.3rem;
     width: 100%;
 }
 .historic{
     background-color: #d0e7ff9f;
+    min-width: 15rem;
+    overflow: auto;
     
 }

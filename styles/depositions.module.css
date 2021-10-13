@@ -5,7 +5,8 @@
 }
 
 .depoimentos_home {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     max-width: 1080px;
     margin: 0 auto;
     padding: 5rem;   
@@ -51,4 +52,15 @@
     font-weight: normal;
     margin-bottom: 0.5rem;
 }
-
+@media screen and (max-width: 540px){
+    .depoimentos_home{
+      grid-template-columns: 1fr;
+      padding: 0.5rem;
+      
+    }
+    .depoimentos_items{
+        min-width: 14rem;
+        margin: 0.5rem;
+        
+    }
+  }

@@ -48,6 +48,10 @@
     transition: 0.3s ease;
     margin: 0.3rem;
   }
+  .input a {
+    display: block;
+    text-align: center;
+  }
   .input div {
     margin-bottom: 1rem;
   }
@@ -59,7 +63,7 @@
     margin: 0.5rem;  
   }
   
-  .input button:hover{
+  .input button:hover, .input a:hover{
     background-color:#142585 ;
     color: white;
   }

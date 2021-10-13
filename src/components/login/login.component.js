@@ -34,7 +34,7 @@ export default function Login() {
                                 defaultValue=""
                                 aria-invalid={errors.email ? "true" : "false"}
                                 ref={register({
-                                    required: "Campo obrigatório",
+                                    required: "Obrigatório",
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                                         message: "Digite um e-mail válido",
@@ -49,7 +49,7 @@ export default function Login() {
                                 placeholder="Senha: "
                                 aria-invalid={errors.password ? "true" : "false"}
                                 ref={register({
-                                    required: "Campo obrigatório",
+                                    required: "Obrigatório",
                                     minLength: {
                                         value: 3,
                                         message: "Utilize no mínimo 3 caracteres"

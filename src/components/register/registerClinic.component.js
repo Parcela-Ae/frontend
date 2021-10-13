@@ -68,12 +68,12 @@ export default function RegisterClinic() {
           toast.notify('Cadastro efetuado com sucesso!!', {
             duration: 5,
             type: "success",
-            title: ""
+            title: "sucesso"
           })
 
           let login = {
-            email: client.email,
-            password: client.password
+            email: clinic.email,
+            password: clinic.password
           }
           await signIn(login)
 
@@ -179,7 +179,7 @@ export default function RegisterClinic() {
               aria-invalid={errors.name ? "true" : "false"}
               defaultValue=""
               ref={register({
-                required: "Campo obrigatório",
+                required: "Obrigatório",
                 minLength: {
                   value: 2,
                   message: "Nome deve ter no mínimo 2 caracteres"
@@ -200,7 +200,7 @@ export default function RegisterClinic() {
               defaultValue=""
               aria-invalid={errors.email ? "true" : "false"}
               ref={register({
-                required: "Campo obrigatório",
+                required: "Obrigatório",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                   message: "Digite um e-mail válido",
@@ -222,7 +222,7 @@ export default function RegisterClinic() {
               name="cnpj"
               maskChar=""
               rules={{
-                required: "Campo obrigatório",
+                required: "Obrigatório",
                 pattern: {
 
                   value: /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/,
@@ -240,7 +240,7 @@ export default function RegisterClinic() {
                 name="password"
                 aria-invalid={errors.password ? "true" : "false"}
                 ref={register({
-                  required: "Campo obrigatório",
+                  required: "Obrigatório",
                   minLength: {
                     value: 3,
                     message: "Utilize no mínimo 3 caracteres"
@@ -256,7 +256,7 @@ export default function RegisterClinic() {
                 id="password_confirmation"
                 name="password_confirmation"
                 ref={register({
-                  required: "Campo obrigatório",
+                  required: "Obrigatório",
                   validate: (value) => value === watch('password') || "As senhas não são iguais",
                 })}
               />
@@ -279,7 +279,7 @@ export default function RegisterClinic() {
                 mask="(99) 9 9999-9999" id="phone1" name="phone1" aria-invalid={errors.phone1 ? "true" : "false"}
                 maskChar=""
                 rules={{
-                  required: "Campo obrigatório",
+                  required: "Obrigatório",
                   pattern: {
                     value: /^(\([0-9]{2}\))\s([9]\s{1})?([0-9]{4})-([0-9]{4})$/,
                     message: "Digite um celular válido",
@@ -314,7 +314,7 @@ export default function RegisterClinic() {
               id="specialties"
               name="specialties"
               ref={register({
-                required: "Campo obrigatório ",
+                required: "Obrigatório ",
                 validate: value => value != "",
               })}
               multiple>
@@ -326,7 +326,7 @@ export default function RegisterClinic() {
 
           <div className={styles.inputButton}>
             <div className={styles.input}>
-              <button onClick={prevStep} >voltar</button>
+              <a onClick={prevStep} >voltar</a>
             </div>
             <div className={styles.input}>
               <a onClick={nextStep} >Prosseguir</a>
@@ -345,7 +345,7 @@ export default function RegisterClinic() {
                 inputRef={register({})}
                 mask="99999-999" maskChar="" id="cep" name="cep" aria-invalid={errors.cep ? "true" : "false"}
                 rules={{
-                  required: "Campo obrigatório",
+                  required: "Obrigatório",
                   minLength: {
                     value: 8,
                     message: "CEP deve ter no mínimo 8 caracteres"
@@ -359,7 +359,7 @@ export default function RegisterClinic() {
               {errors.state && <span className="error">{errors.state.message}</span>}
               <input type="text" readOnly={true} id="state" name="state" aria-invalid={errors.state ? "true" : "false"} value={uf}
                 ref={register({
-                  required: "Campo obrigatório",
+                  required: "Obrigatório",
                 })} />
             </div>
           </div>
@@ -370,7 +370,7 @@ export default function RegisterClinic() {
               {errors.publicArea && <span className="error">{errors.publicArea.message}</span>}
               <input type="text" readOnly={true} id="publicArea" name="publicArea" aria-invalid={errors.publicArea ? "true" : "false"} value={street}
                 ref={register({
-                  required: "Campo obrigatório",
+                  required: "Obrigatório",
                 })} />
             </div>
             <div className={styles.input}>
@@ -378,7 +378,7 @@ export default function RegisterClinic() {
               {errors.city && <span className="error">{errors.city.message}</span>}
               <input type="text" readOnly={true} id="city" name="city" aria-invalid={errors.city ? "true" : "false"} value={city}
                 ref={register({
-                  required: "Campo obrigatório",
+                  required: "Obrigatório",
                   minLength: {
                     value: 2,
                     message: "Nome deve ter no mínimo 2 caracteres"
@@ -407,7 +407,7 @@ export default function RegisterClinic() {
                   }
                 }}
                 ref={register({
-                  required: "Campo obrigatório",
+                  required: "Obrigatório",
                   pattern: {
                     value: /^[0-9]+$/i,
                     message: "Digite um número válido"
@@ -423,7 +423,7 @@ export default function RegisterClinic() {
 
           <div className={styles.inputButton}>
             <div className={styles.input}>
-              <button onClick={prevStep} >voltar</button>
+              <a onClick={prevStep} >voltar</a>
             </div>
             <div className={styles.input}>
               <button type="submit" >Enviar</button>

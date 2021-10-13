@@ -33,9 +33,13 @@
 @media screen and (max-width: 850px){
   .navContainer{
     flex-wrap: wrap;
+    font-size: 0.8rem;
   }
   .navContainer  img{
     max-width: 100%;
     
+  }
+  .navContainerListItem{
+    margin-left: 0.5rem;
   }
 }

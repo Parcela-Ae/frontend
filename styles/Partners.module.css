@@ -9,8 +9,8 @@
   }
 
   .partnerContent{
-    display: flex;
-    justify-content:space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   
   .descricao_parceiros {
@@ -31,4 +31,12 @@
   .descricao_duvida {
     font-weight: lighter;
     color: #333333;
+  }
+
+  @media screen and (max-width: 540px){
+    .partnerContent{
+      display: grid;
+      grid-template-columns: 1fr;
+      
+    }
   }

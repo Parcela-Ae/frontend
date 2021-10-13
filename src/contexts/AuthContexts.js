@@ -34,9 +34,9 @@ export function AuthProvider({ children }) {
         toast.notify('Login efetuado com sucesso!!', {
           duration: 5,
           type: "success",
-          title: ""
+          title: "sucesso"
         })
-        Router.push("/home")
+        window.location.href = '/home'
       } else {
         toast.notify('Usuario ou senha invalida', {
           duration: 5,

@@ -1,7 +1,43 @@
+import { useEffect, useState } from 'react'
 import styles from '../../../styles/clinic.module.css'
+import Modal from "react-modal";
+import { toast } from 'react-nextjs-toast';
+
+Modal.setAppElement("#__next");
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+export default function ClinicItem({ clinic }) {
+
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [value, setValue] = useState()
 
 
-export default function ClinicItem() {
+ function btnClick(v){
+  setValue(v)
+  setModalIsOpen(true)
+
+ }
+ function appointment (){
+  setModalIsOpen(false)
+  toast.notify('Marcação realizada com sucesso!!', {
+    duration: 5,
+    type: "success",
+    title: "sucesso"
+  })
+
+
+ }
+
   return (
     <div className={styles.clinicItem}>
       <div className={styles.clinic}>
@@ -11,7 +47,7 @@ export default function ClinicItem() {
               <img src="./img/image_clinic.svg" alt="" />
               <div >
                 <span>
-                  <strong>nome da clinica</strong>
+                  <strong>{clinic.name}</strong>
                 </span>
                 <div>
                   <img src="/img/star.svg" alt="" />
@@ -26,23 +62,85 @@ export default function ClinicItem() {
             <div>
               <span>endereço:</span>
               <p>
-                zdfdsafgsdgsdgsdgsdgsdgsd
-                sdgsdgsdgsdgsdgsdgsdgsdgds
+                {clinic?.addresses[0].publicArea}, Nº{clinic?.addresses[0].number}, {clinic?.addresses[0].complement}, {clinic?.addresses[0].neighborhood}, {clinic?.addresses[0].state}
               </p>
-              
+
             </div>
+            <p>
+            <strong>cnpj:</strong> {clinic?.cnpj}
+            </p>
+            <p>
+              <strong>telefone:</strong> {clinic.phones[0]} / {clinic.phones[1]}
+            </p>
             <span>Horário de Funcionamento: 12h às 18h</span>
-            {/* <div className="input">
-              <button>Agendar</button>
-            </div> */}
+
           </div>
-          <div>
+          <div >
             <span>Horário disponível</span>
+            <div className="btngrid">
+              <div className="input" >
+                <button onClick={(e) =>{btnClick(e.value)}}>
+                  12:00
+                </button>
+              </div>
+              <div className="input" >
+                <button onClick={(e) =>{btnClick(e.value)}}>
+                  13:00
+                </button>
+              </div>
+              <div className="input">
+                <button onClick={(e) =>{btnClick(e.value)}}>
+                  14:00
+                </button>
+              </div>
+              <div className="input">
+                <button onClick={(e) =>{btnClick(e.value)}}>
+                  15:00
+                </button>
+              </div>
+              <div className="input">
+                <button onClick={(e) =>{btnClick(e.value)}}>
+                  16:00
+                </button>
+              </div>
+              <div className="input">
+                <button value="17:00" onClick={(e) =>{btnClick(e.value)}}>
+                  17:00
+                </button>
+              </div>
+              <div className="input">
+                <button onClick={(e) =>{btnClick(e.value)}}>
+                  18:00
+                </button>
+              </div>
 
-
+            </div>
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        style={customStyles}
+      >
+        <h1>Gostaria de Marca nesse horario?</h1>
+        <div>
+          <p>
+            Preço: 150 creditos
+          </p>
+        </div>
+        <div className="btngrid2">
+          <div className="input">
+            <button onClick={appointment}>
+              Sim
+            </button>
+          </div>
+          <div className="input">
+            <button onClick={()=>{setModalIsOpen(false)}}>
+              Não 
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
 
   )

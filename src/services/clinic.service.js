@@ -14,8 +14,14 @@ const ClinicService = {
 	findAllSpecialties: async () => {      
 		return API.get(`/specialties`)
 	},
+	findAllCities: async () => {      
+		return API.get(`/cities`)
+	},
 	findAll: async () =>{
 		return API.get('/clinics')
+	},
+	findClinicSearch: async (param) =>{
+		return API.post('/clinics/search', param)
 	}
 }
 

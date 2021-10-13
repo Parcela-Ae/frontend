@@ -4,19 +4,18 @@ import { Footer } from "../../components/footer/footer.component"
 import { Header } from "../../components/header/header.component"
 
 import Historic from "../../components/historic/historic.component"
-import { useEffect, useState } from "react"
 import Recharge from "../../components/recharge/recharge.component"
 import Transfer from "../../components/transfer/transfer.component"
 import { Balance } from "../../components/balance/balance.component"
 import { parseCookies } from 'nookies'
+import { useState } from "react"
 
 
 
 export default  function balance (){
-
-    const [isBalance,setIsBalance]= useState(true)
+    const [isRecharge,setIsReacharge]= useState(true)
+    const [isBalance,setIsBalance]= useState(false)
     const [isHistoric,setIsHistoric]= useState(false)
-    const [isRecharge,setIsReacharge]= useState(false)
     const [isTransfer,setIsTransfer]= useState(false)
 
 
@@ -52,16 +51,16 @@ export default  function balance (){
         <div className={styles.bg}>
             <main className={styles.saldo}>
             <div className={styles.container}>
-
+        
                 <div className={styles.side}>
                     <div className={styles.sideLink}>
-                        <a  className={isBalance ? `sideSelect` : ""} onClick={changeBalance}>Saldo</a>
                         <a   className={isRecharge ? `sideSelect` : ""} onClick={changeRecharge}>Recarga</a>
+                        <a  className={isBalance ? `sideSelect` : ""} onClick={changeBalance}>Saldo</a>
                         <a  className={isHistoric ? `sideSelect` : ""}onClick={changeHistoric} >Histórico</a>
                         <a  className={isTransfer ? `sideSelect` : ""}onClick={changeTransfer} >Transferencia</a>
                     </div>
                 </div>
-                {(isBalance && <Balance />) || (isHistoric && <Historic />) || (isRecharge && <Recharge />) || (isTransfer && <Transfer />) }
+                {(isRecharge && <Recharge />) || (isBalance && <Balance />) || (isHistoric && <Historic />) ||  (isTransfer && <Transfer />) }
                 
                 </div>
         </main>

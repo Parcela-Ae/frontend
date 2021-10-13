@@ -1,3 +1,5 @@
+import Link from 'next/Link'
+import Router from "next/router"
 import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -9,13 +11,21 @@ export default function home() {
 
   const { register, handleSubmit, control, errors, watch, trigger } = useForm()
   const [specialties, setSpecialties] = useState([])
+  const [cities, setCities] = useState([])
+  const [specialty, setSpecialty] = useState()
+  const [city, setCity] = useState()
 
   useEffect(async () => {
     setSpecialties(await ClinicService.findAllSpecialties())
+    setCities(await ClinicService.findAllCities())
   }, [])
 
   async function onSubmit(data) {
-    window.location.href = '/clinic'
+    const query = {
+      specialty: data.specialties,
+      city: data.cities
+    }
+    Router.push("/clinic", query)
 
   }
 
@@ -39,25 +49,42 @@ export default function home() {
                     id="specialties"
                     name="specialties"
                     ref={register({})}
+                    onChange={e => setSpecialty(e.target.value)}
                   >
                     <option value="">Buscar...</option>
                     {specialties.map((item) => (
-                      <option key={item.id} value={item.id}> {item.name}</option>
+                      <option key={item.id} value={item.name}> {item.name}</option>
                     ))}
                   </select>
                 </div>
                 <div className={styles.searchItems}>
-                  <label htmlFor="local">Local</label>
-                  <select>
+                  <label htmlFor="cities">Local</label>
+                  {errors.cities && <span className="error">{errors.cities.message}</span>}
+                  <select
+                    id="cities"
+                    name="cities"
+                    ref={register({})}
+                    onChange={e => setCity(e.target.value)}
+                  >
                     <option value="">Buscar...</option>
-
+                    {cities.map((item) => (
+                      <option key={item.name} value={item.name}> {item.name}</option>
+                    ))}
                   </select>
                 </div>
+                <Link href={{
+                pathname: "/clinic",
+                query: { 
+                  specialty: specialty,
+                  city: city
+                },
+              }}>
                 <div className={styles.searchItems}>
                   <button type="submit" id={styles.img_search}>
                     <img src="./img/search.svg" id={styles.img_search} />
                   </button>
                 </div>
+                </Link>
               </div>
             </form>
             {/* <div className={styles.keywords}>

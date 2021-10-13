@@ -20,7 +20,7 @@ export  default function Index() {
                     <section className={styles.headerContent}>
                         <h2 className={styles.title}>Nunca foi tão simples e acessível cuidar da  sua saúde</h2>
                         <h4 className={styles.title_description}>A conta nas clínicas particulares está  complicada? Simplifica. Parcela Aê!</h4>
-                        <a href="" className={styles.blueBg}>Saiba mais</a>
+                        
                     </section>
                 </div>
             </div>

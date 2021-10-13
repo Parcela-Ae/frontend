@@ -36,4 +36,10 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
 }
-
+@media screen and (max-width: 400px){
+  .div {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+    
+}
