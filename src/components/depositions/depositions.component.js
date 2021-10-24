@@ -1,3 +1,4 @@
+import Link from 'next/Link'
 import styles from '../../../styles/depositions.module.css'
 export function Depositions() {
     return (
@@ -80,7 +81,9 @@ export function Depositions() {
                 <div className="">
                     <span>
                         <h4>O que você está esperando? Aproveite também!</h4>
-                        <a href="" className="pink_bg">Cadastre-se</a>
+                        <Link href="/register">
+                            <a href="" className="pink_bg">Cadastre-se</a>
+                        </Link>
                     </span>
                 </div>
             </div>

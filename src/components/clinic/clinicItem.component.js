@@ -122,7 +122,7 @@ export default function ClinicItem({ clinic }) {
         isOpen={modalIsOpen}
         style={customStyles}
       >
-        <h1>Gostaria de Marca nesse horario?</h1>
+        <h1>Gostaria de Marcar nesse horario?</h1>
         <div>
           <p>
             Preço: 150 creditos

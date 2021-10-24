@@ -10,15 +10,15 @@ export default function register() {
   const [typeUser, SetTypeUser] = useState(1)
   return (
     <div className={styles.bg}>
-      <main className={styles.login}>
+      <main className={styles.register}>
         <div className={styles.container}>
 
           <h1>Cadastro</h1>
           <div className={styles.inputButton}>
-            <div className={`${styles.input} ${typeUser === 1 ? 'select' : '' }`}>
+            <div className={`${styles.input} ${styles.clinicOrClient} ${typeUser === 1 ? 'select' : '' }`}>
               <button onClick={()=>{SetTypeUser(1)}}>Cliente</button>
             </div>
-            <div className={`${styles.input} ${ typeUser === 2 ? 'select' : '' }`}>
+            <div className={`${styles.input} ${styles.clinicOrClient} ${ typeUser === 2 ? 'select' : '' }`}>
               <button onClick={()=>{SetTypeUser(2)}}>Clinica</button>
             </div>
           </div>

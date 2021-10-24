@@ -6,13 +6,19 @@ let headersNoAxios = new Headers({
   "Content-Type": "application/json"
 })
 
+
 if (token) {
   headersNoAxios.append("authorization", `Bearer ${token}`)
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   
 }
 const base = () => {
-  return "http://localhost:8080"
+  switch (process.env.NEXT_PUBLIC_ISLOCAL) {
+		case 'true':
+			return `http://localhost:8080`
+		default:
+			return `https://parcela-ae-app.herokuapp.com`
+	}
 }
 
 const API = {
