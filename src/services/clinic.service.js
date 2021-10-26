@@ -1,4 +1,4 @@
-import API from '../Api/api'
+import API from '../api/api'
 
 
 const ClinicService = {
