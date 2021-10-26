@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from 'next/Document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { Header } from '../components/header/header.component'
 export default class myDocuments extends Document {
     render() {
