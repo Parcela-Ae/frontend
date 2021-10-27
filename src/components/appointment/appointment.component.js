@@ -20,9 +20,7 @@ export default function Appointment() {
               <th>Código</th>
               <th>Clinica</th>
               <th>Data</th>
-              <th>Tipo</th>
               <th>Valor</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -33,7 +31,6 @@ export default function Appointment() {
                 <td>{item.operationDate}</td>
                 <td>{item.type}</td>
                 <td>R$ {item.value}</td>
-                <td><a href=" ">detalhes</a></td>
               </tr>
             ))}
           </tbody>

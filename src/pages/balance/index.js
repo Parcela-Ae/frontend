@@ -9,8 +9,6 @@ import Transfer from "../../components/transfer/transfer.component"
 import { Balance } from "../../components/balance/balance.component"
 import { parseCookies } from 'nookies'
 import { useState } from "react"
-import Appointment from '../../components/appointment/appointment.component'
-
 
 
 export default function balance() {

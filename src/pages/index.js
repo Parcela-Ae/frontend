@@ -6,8 +6,6 @@ import { Header } from '../components/header/header.component'
 import Partners from '../components/Partners/partners.component'
 import FrequentlyAskedQuestions from '../components/frequently-asked-questions/frequently-asked-questions.component'
 
-
-
 export  default function Index() {
     return (
         <>
