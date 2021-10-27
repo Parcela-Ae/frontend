@@ -65,8 +65,9 @@
     background-color: #d0e7ff9f;
 }
 
-/* @media screen and (max-width: 400px){
+@media screen and (max-width: 500px){
     .container{
         grid-template-columns: 1fr;
+        height: auto;
     }
-  } */
+  }

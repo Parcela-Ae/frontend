@@ -9,77 +9,46 @@ import Transfer from "../../components/transfer/transfer.component"
 import { Balance } from "../../components/balance/balance.component"
 import { parseCookies } from 'nookies'
 import { useState } from "react"
+import Appointment from '../../components/appointment/appointment.component'
 
 
 
-export default  function balance (){
-    const [isRecharge,setIsReacharge]= useState(true)
-    const [isBalance,setIsBalance]= useState(false)
-    const [isHistoric,setIsHistoric]= useState(false)
-    const [isTransfer,setIsTransfer]= useState(false)
+export default function balance() {
+  const [select,Setselect] = useState(1)
 
+  return (
+    <div className={styles.bg}>
+      <main className={styles.saldo}>
+        <div className={styles.container}>
 
-    function changeBalance(){
-        setIsBalance(true)
-        setIsReacharge(false)
-        setIsHistoric(false)
-        setIsTransfer(false)
-    }
+          <div className={styles.side}>
+            <div className={styles.sideLink}>
+              <a className={select === 1 ? `sideSelect` : ""} onClick={()=>{Setselect(1)}}>Recarga</a>
+              <a className={select === 2 ? `sideSelect` : ""} onClick={()=>{Setselect(2)}}>Saldo</a>
+              <a className={select === 3 ? `sideSelect` : ""} onClick={()=>{Setselect(3)}} >Histórico</a>
+              <a className={select === 4 ? `sideSelect` : ""} onClick={()=>{Setselect(4)}} >Transferencia</a>
+            </div>
+          </div>
+          {(select === 1 && <Recharge />) || (select === 2 && <Balance />) || (select === 3 && <Historic />) || (select === 4 && <Transfer />)}
 
-    function changeRecharge(){
-        setIsReacharge(true)
-        setIsBalance(false)
-        setIsHistoric(false)
-        setIsTransfer(false)
-    }
-
-    function changeHistoric(){
-        setIsHistoric(true)
-        setIsBalance(false)
-        setIsReacharge(false)
-        setIsTransfer(false)
-    }
-    function changeTransfer(){
-        setIsTransfer(true)
-        setIsHistoric(false)
-        setIsBalance(false)
-        setIsReacharge(false)
-        
-    }
-
-    return(
-        <div className={styles.bg}>
-            <main className={styles.saldo}>
-            <div className={styles.container}>
-        
-                <div className={styles.side}>
-                    <div className={styles.sideLink}>
-                        <a   className={isRecharge ? `sideSelect` : ""} onClick={changeRecharge}>Recarga</a>
-                        <a  className={isBalance ? `sideSelect` : ""} onClick={changeBalance}>Saldo</a>
-                        <a  className={isHistoric ? `sideSelect` : ""}onClick={changeHistoric} >Histórico</a>
-                        <a  className={isTransfer ? `sideSelect` : ""}onClick={changeTransfer} >Transferencia</a>
-                    </div>
-                </div>
-                {(isRecharge && <Recharge />) || (isBalance && <Balance />) || (isHistoric && <Historic />) ||  (isTransfer && <Transfer />) }
-                
-                </div>
-        </main>
-            <Footer />
         </div>
-    )
+      </main>
+      <Footer />
+    </div>
+  )
 }
 
-export  async function getServerSideProps(ctx){
-    const {['parcelaAe.token']:token } = parseCookies(ctx)
-    if(!token){
-        return{
-            redirect:{
-                destination: "/login",
-                permanent: false
-            }
-        }
+export async function getServerSideProps(ctx) {
+  const { ['parcelaAe.token']: token } = parseCookies(ctx)
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false
+      }
     }
-    return{
-        props:{}
-    }
+  }
+  return {
+    props: {}
+  }
 }
