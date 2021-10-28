@@ -11,13 +11,11 @@ export default function Recharge() {
 
   const { register, handleSubmit, control, errors, watch, trigger } = useForm()
   const { user } = useContext(AuthContext)
-  const [client, setClient] = useState()
-
 
   async function onSubmit(data) {
     const paymant = {
       "originCreditId": "1",
-      "destinationCreditId": user.id,
+      "destinationCreditId": user?.credit?.id,
       "value": data.value,
       "type": "RECHARGE",
       "cardNumber": data.cardNumber,
@@ -26,7 +24,6 @@ export default function Recharge() {
       "installments": 5,
       "expirationDate": data.expirationDate
     }
-    console.log(paymant)
     await PaymentService.create(paymant)
       .then(async (e) => {
 
@@ -40,7 +37,7 @@ export default function Recharge() {
 
           window.location.href = '/home'
         } else {
-          toast.notify(e.errors[0].message, {
+          toast.notify(e.errors[0].message ? e.errors[0].message : "Ocorreu um erro, Já estamos cientes do ocorrido", {
             duration: 5,
             type: "error",
             title: "error"
@@ -175,6 +172,8 @@ export default function Recharge() {
                 control={control}
                 maskChar=""
                 defaultValue=""
+                maskChar=""
+                mask="99999999999999999"
                 aria-invalid={errors.value ? "true" : "false"}
                 id="value"
                 name="value"

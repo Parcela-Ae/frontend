@@ -22,8 +22,9 @@ export function Balance() {
                         </div>
                         <div >
                             <h5><strong>última recarga</strong></h5>
-                            <h6>3500 Créditos - 25/06</h6>
-                            <span>numero da conta: {user.id}</span>
+                            <h6>{client?.lastTransaction?.value} Créditos - {client?.lastTransaction?.operationDate}</h6>
+                            <h6>{client?.lastTransaction?.type}</h6>
+                            <span>numero da conta: {client?.credit?.id}</span>
                         </div>
                 </div>
             </div>
