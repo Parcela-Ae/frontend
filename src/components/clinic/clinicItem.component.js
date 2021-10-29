@@ -48,7 +48,7 @@ export default function ClinicItem({ clinic }) {
           })
         } else {
           setModalIsOpen(false)
-          toast.notify(e.errors[0].message ? e.errors[0].message : "Ocorreu um erro, Já estamos cientes do ocorrido", {
+          toast.notify(e.message ? e.message : "Ocorreu um erro, Já estamos cientes do ocorrido", {
             duration: 5,
             type: "error",
             title: "error"
