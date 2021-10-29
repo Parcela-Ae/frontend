@@ -14,8 +14,7 @@ export default function Recharge() {
 
   async function onSubmit(data) {
     const paymant = {
-      "originCreditId": "1",
-      "destinationCreditId": user?.credit?.id,
+      "accountNumberDestination": user?.accountNumber,
       "value": data.value,
       "type": "RECHARGE",
       "cardNumber": data.cardNumber,

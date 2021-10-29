@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from '../../../styles/clinic.module.css'
 import Modal from "react-modal";
 import { toast } from 'react-nextjs-toast';
+import PaymentService from '../../services/payment.service';
+import { AuthContext } from '../../contexts/AuthContexts';
 
 Modal.setAppElement("#__next");
 
@@ -17,26 +19,51 @@ const customStyles = {
 };
 
 export default function ClinicItem({ clinic }) {
-
+  const { user } = useContext(AuthContext)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [value, setValue] = useState()
 
 
- function btnClick(v){
-  setValue(v)
-  setModalIsOpen(true)
+  function btnClick(v) {
+    setValue(v)
+    setModalIsOpen(true)
 
- }
- function appointment (){
-  setModalIsOpen(false)
-  toast.notify('Marcação realizada com sucesso!!', {
-    duration: 5,
-    type: "success",
-    title: "sucesso"
-  })
+  }
+  async function appointment() {
+    const paymant = {
+      "accountNumberOrigin": user?.accountNumber,
+      "cpfCnpj": clinic?.cnpj,
+      "value": 150,
+      "type": "PAYMENT"
+    }
+    PaymentService.create(paymant)
+      .then(async (e) => {
 
+        if (!e) {
+          setModalIsOpen(false)
+          toast.notify('Marcação realizada com sucesso!!', {
+            duration: 5,
+            type: "success",
+            title: "sucesso"
+          })
+        } else {
+          setModalIsOpen(false)
+          toast.notify(e.errors[0].message ? e.errors[0].message : "Ocorreu um erro, Já estamos cientes do ocorrido", {
+            duration: 5,
+            type: "error",
+            title: "error"
+          })
+        }
 
- }
+      }).catch((error) => {
+        setModalIsOpen(false)
+        toast.notify(error.message, {
+          duration: 5,
+          type: "error",
+          title: "error"
+        })
+      })
+  }
 
   return (
     <div className={styles.clinicItem}>
@@ -67,7 +94,7 @@ export default function ClinicItem({ clinic }) {
 
             </div>
             <p>
-            <strong>cnpj:</strong> {clinic?.cnpj}
+              <strong>cnpj:</strong> {clinic?.cnpj}
             </p>
             <p>
               <strong>telefone:</strong> {clinic.phones[0]} / {clinic.phones[1]}
@@ -79,37 +106,37 @@ export default function ClinicItem({ clinic }) {
             <span>Horário disponível</span>
             <div className="btngrid">
               <div className="input" >
-                <button onClick={(e) =>{btnClick(e.value)}}>
+                <button onClick={(e) => { btnClick(e.value) }}>
                   12:00
                 </button>
               </div>
               <div className="input" >
-                <button onClick={(e) =>{btnClick(e.value)}}>
+                <button onClick={(e) => { btnClick(e.value) }}>
                   13:00
                 </button>
               </div>
               <div className="input">
-                <button onClick={(e) =>{btnClick(e.value)}}>
+                <button onClick={(e) => { btnClick(e.value) }}>
                   14:00
                 </button>
               </div>
               <div className="input">
-                <button onClick={(e) =>{btnClick(e.value)}}>
+                <button onClick={(e) => { btnClick(e.value) }}>
                   15:00
                 </button>
               </div>
               <div className="input">
-                <button onClick={(e) =>{btnClick(e.value)}}>
+                <button onClick={(e) => { btnClick(e.value) }}>
                   16:00
                 </button>
               </div>
               <div className="input">
-                <button value="17:00" onClick={(e) =>{btnClick(e.value)}}>
+                <button value="17:00" onClick={(e) => { btnClick(e.value) }}>
                   17:00
                 </button>
               </div>
               <div className="input">
-                <button onClick={(e) =>{btnClick(e.value)}}>
+                <button onClick={(e) => { btnClick(e.value) }}>
                   18:00
                 </button>
               </div>
@@ -135,8 +162,8 @@ export default function ClinicItem({ clinic }) {
             </button>
           </div>
           <div className="input">
-            <button onClick={()=>{setModalIsOpen(false)}}>
-              Não 
+            <button onClick={() => { setModalIsOpen(false) }}>
+              Não
             </button>
           </div>
         </div>

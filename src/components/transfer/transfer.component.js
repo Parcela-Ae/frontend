@@ -12,8 +12,8 @@ export default function Transfer() {
 
 	async function onSubmit(data) {
 		const paymant = {
-			"originCreditId": user?.credit?.id,
-			"destinationCreditId": data.destinationCreditId,
+			"originCreditId": user?.accountNumber,
+			"cpfCnpj": data.cpfCnpj,
 			"value": data.value,
 			"type": "TRANSFER",
 		}
@@ -55,14 +55,14 @@ export default function Transfer() {
 						<div className={styles.input}>
 							<Controller
 								inputRef={register({})}
-								placeholder="Conta do Recebedor *"
+								placeholder="CPF/CNPJ do Recebedor *"
 								as={InputMask}
 								control={control}
 								maskChar="99999999999999999"
 								defaultValue=""
 								aria-invalid={errors.value ? "true" : "false"}
-								id="destinationCreditId"
-								name="destinationCreditId"
+								id="cpfCnpj"
+								name="cpfCnpj"
 								rules={{
 									required: "Obrigatório",
 									pattern: {
