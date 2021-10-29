@@ -12,7 +12,7 @@ export default function Transfer() {
 
 	async function onSubmit(data) {
 		const paymant = {
-			"originCreditId": user?.accountNumber,
+			"accountNumberOrigin": user?.accountNumber,
 			"cpfCnpj": data.cpfCnpj,
 			"value": data.value,
 			"type": "TRANSFER",
