@@ -13,7 +13,7 @@ export default function Transfer() {
 	async function onSubmit(data) {
 		const paymant = {
 			"accountNumberOrigin": user?.accountNumber,
-			"cpfCnpj": data.cpfCnpj,
+			"cpfCnpj": data.cpf,
 			"value": data.value,
 			"type": "TRANSFER",
 		}
@@ -31,7 +31,7 @@ export default function Transfer() {
 
 					window.location.href = '/home'
 				} else {
-					toast.notify(e.message ? e.message : "Conta inválida", {
+					toast.notify(e.message ? e.message : "CPF invalido!", {
 						duration: 5,
 						type: "error",
 						title: "error"
@@ -53,25 +53,27 @@ export default function Transfer() {
 				<div>
 					<div className={styles.inputDiv}>
 						<div className={styles.input}>
-							<Controller
-								inputRef={register({})}
-								placeholder="CPF/CNPJ do Recebedor *"
-								as={InputMask}
-								control={control}
-								maskChar="99999999999999999"
-								defaultValue=""
-								aria-invalid={errors.value ? "true" : "false"}
-								id="cpfCnpj"
-								name="cpfCnpj"
-								rules={{
-									required: "Obrigatório",
-									pattern: {
-										value: /([0-9])/,
-										message: "Digite um número válido",
-									},
-								}}
-							/>
-							{errors.value && <span className="error">{errors.value.message}</span>}
+						<Controller
+              inputRef={register({})}
+              as={InputMask}
+              control={control}
+              mask="999.999.999-99"
+              aria-invalid={errors.cpf ? "true" : "false"}
+              defaultValue=""
+              type="text"
+              id="cpf"
+							name="cpf"
+              maskChar=""
+              rules={{
+                required: "Obrigatório",
+                pattern: {
+
+                  value: /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/,
+                  message: "Digite um CPF válido",
+                },
+              }}
+            />
+							{errors.cpf && <span className="error">{errors.value.message}</span>}
 						</div>
 						<div className={styles.input}>
 							<Controller
