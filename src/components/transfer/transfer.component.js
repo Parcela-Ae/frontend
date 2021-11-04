@@ -57,6 +57,7 @@ export default function Transfer() {
               inputRef={register({})}
               as={InputMask}
               control={control}
+							placeholder="Digite o CPF*"
               mask="999.999.999-99"
               aria-invalid={errors.cpf ? "true" : "false"}
               defaultValue=""
@@ -73,7 +74,7 @@ export default function Transfer() {
                 },
               }}
             />
-							{errors.cpf && <span className="error">{errors.value.message}</span>}
+							{errors.cpf && <span className="error">{errors.cpf.message}</span>}
 						</div>
 						<div className={styles.input}>
 							<Controller

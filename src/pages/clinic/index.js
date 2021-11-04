@@ -5,6 +5,7 @@ import ClinicItem from '../../components/clinic/clinicItem.component'
 import { Footer } from '../../components/footer/footer.component'
 import { useRouter } from "next/router"
 import ClinicService from '../../services/clinic.service'
+import { toast } from 'react-nextjs-toast'
 
 export default function clinic() {
   const router = useRouter()
@@ -14,8 +15,15 @@ export default function clinic() {
   } = router
 
   useEffect(async () => {
-    if (!specialty && !city) {
-      window.location.href = '/home'
+    if (!specialty || (!specialty && !city)) {
+      toast.notify('Especialidade não pode ser vazia !!', {
+        duration: 5,
+        type: "error",
+        title: "error!"
+      })
+      setTimeout(() => {
+        window.location.href = '/home'
+      },5000)  
     } else {
       const param = {
         name: "",
@@ -36,7 +44,7 @@ export default function clinic() {
         ))}
         {clinic.length === 0 && (
           <div className={styles.clinic}>
-              <h1>Nenhuma clinica encontrada</h1>
+            <h1>Nenhuma clinica encontrada</h1>
           </div>
         )}
       </div>
