@@ -14,6 +14,7 @@ export default function RegisterClinic() {
   const { signIn } = useContext(AuthContext)
   const [validNumber, setValidNumber] = useState(false)
   const [step, setStep] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [specialties, setSpecialties] = useState([])
   const [perPage, setPerPage] = useState(12)
@@ -32,6 +33,7 @@ export default function RegisterClinic() {
   }, [])
 
   async function onSubmit(data) {
+    setIsLoading(true)
 
     data.cnpj = data.cnpj.replace(/[\W_]/g, '')
     data.cep = data.cep.replace(/[\W_]/g, '')
@@ -83,16 +85,18 @@ export default function RegisterClinic() {
             type: "error",
             title: "error"
           })
+          setIsLoading(false)
         }
 
       }).catch((error) => {
-
         toast.notify(error.message, {
           duration: 5,
           type: "error",
           title: "error"
         })
+        setIsLoading(false)
       })
+      setIsLoading(false)
   }
 
   const checkPhone = (value) => {
@@ -426,7 +430,12 @@ export default function RegisterClinic() {
               <a onClick={prevStep} >voltar</a>
             </div>
             <div className={styles.input}>
-              <button type="submit" >Enviar</button>
+            <button
+								disabled={isLoading ? true : false}
+								type="submit"
+							>
+								{isLoading ? 'Carregando...' : 'Enviar'}
+							</button>
             </div>
 
           </div>

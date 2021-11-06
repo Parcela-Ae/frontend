@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form'
 import InputMask from "react-input-mask";
 import { toast } from 'react-nextjs-toast'
@@ -9,8 +9,10 @@ export default function Transfer() {
 
 	const { register, handleSubmit, control, errors, watch, trigger } = useForm()
 	const { user } = useContext(AuthContext)
+	const [isLoading, setIsLoading] = useState(false)
 
 	async function onSubmit(data) {
+		setIsLoading(true)
 		const paymant = {
 			"accountNumberOrigin": user?.accountNumber,
 			"cpfCnpj": data.cpf,
@@ -28,6 +30,7 @@ export default function Transfer() {
 						type: "success",
 						title: "sucesso"
 					})
+					setIsLoading(false)
 
 					window.location.href = '/home'
 				} else {
@@ -36,6 +39,7 @@ export default function Transfer() {
 						type: "error",
 						title: "error"
 					})
+					setIsLoading(false)
 				}
 
 			}).catch((error) => {
@@ -44,6 +48,7 @@ export default function Transfer() {
 					type: "error",
 					title: "error"
 				})
+				setIsLoading(false)
 			})
 	}
 	return (
@@ -99,7 +104,12 @@ export default function Transfer() {
 						</div>
 					</div>
 					<div className={styles.input}>
-						<button >Realizar Transferencia</button>
+					<button
+								disabled={isLoading ? true : false}
+								type="submit"
+							>
+								{isLoading ? 'Carregando...' : 'Realizar Transferencia'}
+							</button>
 					</div>
 				</div>
 			</form>

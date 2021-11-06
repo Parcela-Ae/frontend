@@ -11,8 +11,10 @@ export default function Recharge() {
 
   const { register, handleSubmit, control, errors, watch, trigger } = useForm()
   const { user } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState(false)
 
   async function onSubmit(data) {
+    setIsLoading(true)
     const paymant = {
       "accountNumberDestination": user?.accountNumber,
       "value": data.value,
@@ -33,6 +35,7 @@ export default function Recharge() {
             type: "success",
             title: "sucesso"
           })
+          setIsLoading(false)
 
           window.location.href = '/home'
         } else {
@@ -41,6 +44,7 @@ export default function Recharge() {
             type: "error",
             title: "error"
           })
+          setIsLoading(false)
         }
 
       }).catch((error) => {
@@ -50,6 +54,7 @@ export default function Recharge() {
           type: "error",
           title: "error"
         })
+        setIsLoading(false)
       })
   }
   return (
@@ -196,7 +201,12 @@ export default function Recharge() {
             </div>
           </div>
           <div className={styles.input}>
-            <button >Realizar Recarga</button>
+          <button
+								disabled={isLoading ? true : false}
+								type="submit"
+							>
+								{isLoading ? 'Carregando...' : 'Realizar Recarga'}
+							</button>
           </div>
         </div>
       </form>

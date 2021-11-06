@@ -13,6 +13,7 @@ export default function RegisterClient() {
   const { signIn } = useContext(AuthContext)
   const [validNumber, setValidNumber] = useState(false)
   const [step, setStep] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
 
   let [uf, setUf] = useState("")
   let [city, setCity] = useState("")
@@ -23,6 +24,7 @@ export default function RegisterClient() {
 
   async function onSubmit(data) {
 
+    setIsLoading(true)
 
     data.cpf = data.cpf.replace(/[\W_]/g, '')
     data.cep = data.cep.replace(/[\W_]/g, '')
@@ -67,6 +69,7 @@ export default function RegisterClient() {
             type: "error",
             title: "error"
           })
+          setIsLoading(false)
         }
 
       }).catch((error) => {
@@ -76,7 +79,9 @@ export default function RegisterClient() {
           type: "error",
           title: "error"
         })
+        setIsLoading(false)
       })
+      setIsLoading(false)
   }
 
   const checkPhone = (value) => {
@@ -367,7 +372,12 @@ export default function RegisterClient() {
               <a onClick={prevStep} >voltar</a>
             </div>
             <div className={styles.input}>
-              <button type="submit" >Enviar</button>
+            <button
+								disabled={isLoading ? true : false}
+								type="submit"
+							>
+								{isLoading ? 'Carregando...' : 'Enviar'}
+							</button>
             </div>
 
           </div>

@@ -1,5 +1,6 @@
 import axios from "axios"
 import { parseCookies } from "nookies";
+import { toast } from 'react-nextjs-toast';
 
 const { 'parcelaAe.token': token } = parseCookies()
 let headersNoAxios = new Headers({

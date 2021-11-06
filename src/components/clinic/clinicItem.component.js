@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import { toast } from 'react-nextjs-toast';
 import PaymentService from '../../services/payment.service';
 import { AuthContext } from '../../contexts/AuthContexts';
+import { useForm } from 'react-hook-form';
 
 Modal.setAppElement("#__next");
 
@@ -19,6 +20,7 @@ const customStyles = {
 };
 
 export default function ClinicItem({ clinic }) {
+  const { register, handleSubmit, control, errors, watch } = useForm()
   const { user } = useContext(AuthContext)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [value, setValue] = useState()
@@ -27,6 +29,11 @@ export default function ClinicItem({ clinic }) {
   function btnClick(v) {
     setValue(v)
     setModalIsOpen(true)
+
+  }
+
+  function loadDate(v) {
+    console.log(v);
 
   }
   async function appointment() {
@@ -99,45 +106,95 @@ export default function ClinicItem({ clinic }) {
             <p>
               <strong>telefone:</strong> {clinic.phones[0]} / {clinic.phones[1]}
             </p>
-            <span>Horário de Funcionamento: 12h às 18h</span>
+            <span>Horário de Funcionamento: 08h às 19h</span>
 
           </div>
           <div >
+            <div className="input">
+            <label htmlFor="birthdate">
+									Data de agendamento 
+								</label>
+								<input
+									type="date"
+									aria-invalid={
+										errors.birthdate ? 'true' : 'false'
+									}
+									id="birthdate"
+									name="birthdate"
+									ref={register({
+										required: 'Campo obrigatório',
+										minLength: {
+											value: 8
+										},
+									})}
+                  onChange={(e) => { loadDate(e.target.value) }}
+								/>
+								{errors.birthdate && (
+									<span className="error">
+										{errors.birthdate.message}
+									</span>
+								)}
+            </div>
             <span>Horário disponível</span>
             <div className="btngrid">
+            <div className="input" >
+                <button onClick={(e) => { btnClick(e.target.value) }}>
+                  08:00
+                </button>
+              </div>
               <div className="input" >
-                <button onClick={(e) => { btnClick(e.value) }}>
+                <button onClick={(e) => { btnClick(e.target.value) }}>
+                  09:00
+                </button>
+              </div>
+              <div className="input" >
+                <button onClick={(e) => { btnClick(e.target.value) }}>
+                  10:00
+                </button>
+              </div>
+              <div className="input" >
+                <button onClick={(e) => { btnClick(e.target.value) }}>
+                  11:00
+                </button>
+              </div>
+              <div className="input" >
+                <button onClick={(e) => { btnClick(e.target.value) }}>
                   12:00
                 </button>
               </div>
               <div className="input" >
-                <button onClick={(e) => { btnClick(e.value) }}>
+                <button onClick={(e) => { btnClick(e.target.value) }}>
                   13:00
                 </button>
               </div>
               <div className="input">
-                <button onClick={(e) => { btnClick(e.value) }}>
+                <button onClick={(e) => { btnClick(e.target.value) }}>
                   14:00
                 </button>
               </div>
               <div className="input">
-                <button onClick={(e) => { btnClick(e.value) }}>
+                <button onClick={(e) => { btnClick(e.target.value) }}>
                   15:00
                 </button>
               </div>
               <div className="input">
-                <button onClick={(e) => { btnClick(e.value) }}>
+                <button onClick={(e) => { btnClick(e.target.value) }}>
                   16:00
                 </button>
               </div>
               <div className="input">
-                <button value="17:00" onClick={(e) => { btnClick(e.value) }}>
+                <button value="17:00" onClick={(e) => { btnClick(e.target.value) }}>
                   17:00
                 </button>
               </div>
               <div className="input">
-                <button onClick={(e) => { btnClick(e.value) }}>
+                <button onClick={(e) => { btnClick(e.target.value) }}>
                   18:00
+                </button>
+              </div>
+              <div className="input" >
+                <button onClick={(e) => { btnClick(e.target.value) }}>
+                  19:00
                 </button>
               </div>
 
