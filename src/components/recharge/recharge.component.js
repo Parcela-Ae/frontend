@@ -12,6 +12,23 @@ export default function Recharge() {
   const { register, handleSubmit, control, errors, watch, trigger } = useForm()
   const { user } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
+  const [installments, setInstallments] = useState([])
+
+  function installment(e) {
+    var installments = []
+    var value = 0
+    let money = 0
+    for (let index = 1; index <= 12; index++) {
+      value = (e / index).toFixed(2)
+      money = (new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(value))
+      
+      installments.push(money)
+    }
+    setInstallments(installments)
+  }
 
   async function onSubmit(data) {
     setIsLoading(true)
@@ -22,7 +39,7 @@ export default function Recharge() {
       "cardNumber": data.cardNumber,
       "cvv": data.cvv,
       "cardHolderName": data.name,
-      "installments": 5,
+      "installments": data.installments,
       "expirationDate": data.expirationDate
     }
     await PaymentService.create(paymant)
@@ -64,6 +81,7 @@ export default function Recharge() {
         <div>
           <div className={styles.inputDiv}>
             <div className={styles.input}>
+              {errors.cardNumber && <span className="error">{errors.cardNumber.message}</span>}
               <Controller
                 inputRef={register({})}
                 placeholder="Número do cartão *"
@@ -87,11 +105,11 @@ export default function Recharge() {
                   },
                 }}
               />
-              {errors.cardNumber && <span className="error">{errors.cardNumber.message}</span>}
+
             </div>
 
             <div className={styles.input}>
-
+              {errors.name && <span className="error">{errors.name.message}</span>}
               <input type="text"
                 id="name"
                 name="name"
@@ -109,11 +127,12 @@ export default function Recharge() {
                     message: "Digite um nome válido"
                   },
                 })} />
-              {errors.name && <span className="error">{errors.name.message}</span>}
+
             </div>
           </div>
           <div className={styles.inputDiv}>
             <div className={styles.input}>
+              {errors.expirationDate && <span className="error">{errors.expirationDate.message}</span>}
               <Controller
                 inputRef={register({})}
                 placeholder="Data de expiração *"
@@ -137,10 +156,11 @@ export default function Recharge() {
                   },
                 }}
               />
-              {errors.expirationDate && <span className="error">{errors.expirationDate.message}</span>}
+
             </div>
 
             <div className={styles.input}>
+              {errors.cvv && <span className="error">{errors.cvv.message}</span>}
               <Controller
                 inputRef={register({})}
                 placeholder="CVV *"
@@ -149,7 +169,7 @@ export default function Recharge() {
                 control={control}
                 maskChar=""
                 mask="9999"
-                aria-invalid={errors.cvvCard ? "true" : "false"}
+                aria-invalid={errors.cvv ? "true" : "false"}
                 id="cvv"
                 name="cvv"
                 rules={{
@@ -164,49 +184,57 @@ export default function Recharge() {
                   },
                 }}
               />
-              {errors.cvvCard && <span className="error">{errors.cvvCard.message}</span>}
+
             </div>
           </div>
           <div className={styles.inputDiv}>
             <div className={styles.input}>
-              <Controller
-                inputRef={register({})}
+              {errors.value && <span className="error">{errors.value.message}</span>}
+              <input
                 placeholder="Valor da recarga*"
-                as={InputMask}
                 control={control}
-                maskChar=""
-                defaultValue=""
-                maskChar=""
-                mask="99999999999999999"
                 aria-invalid={errors.value ? "true" : "false"}
                 id="value"
                 name="value"
-                rules={{
+                ref={register({
                   required: "Obrigatório",
                   pattern: {
                     value: /([0-9])/,
                     message: "Digite um número válido",
                   },
-                }}
+                })}
+                onChange={(e) => { installment(e.target.value) }}
               />
-              {errors.value && <span className="error">{errors.value.message}</span>}
 
             </div>
-
             <div className={styles.input}>
-              <select>
+              {errors.installments && (<span className="error"> Escolha uma opção</span>)}
+              <select
+                id="installments"
+                name="installments"
+                aria-invalid={errors.installments ? "true" : "false"}
+                ref={register(
+                  {
+                    required: true,
+                    validate: (value) => value != ''
+                  }
+                )}
+              >
                 <option value="">Selecione a quantidade de parcelas *</option>
-                <option value="1">1x de R$&nbsp;475,00 sem juros</option>
+                {installments.map((item, index) => (
+                  <option key={index} value={index + 1}> {index + 1}x R$ {item}</option>
+                ))}
               </select>
+
             </div>
           </div>
           <div className={styles.input}>
-          <button
-								disabled={isLoading ? true : false}
-								type="submit"
-							>
-								{isLoading ? 'Carregando...' : 'Realizar Recarga'}
-							</button>
+            <button
+              disabled={isLoading ? true : false}
+              type="submit"
+            >
+              {isLoading ? 'Carregando...' : 'Realizar Recarga'}
+            </button>
           </div>
         </div>
       </form>
