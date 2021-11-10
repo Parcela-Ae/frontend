@@ -64,7 +64,7 @@ export default function RegisterClient() {
           await signIn(login)
 
         } else {
-          toast.notify(e.errors[0].message, {
+          toast.notify(e.message ? e.message : "Ocorreu um erro, Já estamos cientes do ocorrido" , {
             duration: 5,
             type: "error",
             title: "error"

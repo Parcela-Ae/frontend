@@ -21,7 +21,7 @@ export default function balance() {
 
           <div className={styles.side}>
             <div className={styles.sideLink}>
-              <a className={select === 1 ? `sideSelect` : ""} onClick={()=>{Setselect(1)}}>Recarga</a>
+              <a className={select === 1 ? `sideSelect` : ""} onClick={()=>{Setselect(1)}} id={styles.redondo}>Recarga</a>
               <a className={select === 2 ? `sideSelect` : ""} onClick={()=>{Setselect(2)}}>Saldo</a>
               <a className={select === 3 ? `sideSelect` : ""} onClick={()=>{Setselect(3)}} >Histórico</a>
               <a className={select === 4 ? `sideSelect` : ""} onClick={()=>{Setselect(4)}} >Transferencia</a>

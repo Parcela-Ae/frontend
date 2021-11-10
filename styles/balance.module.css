@@ -61,6 +61,10 @@
     font-size: 1.5rem;
 }
 
+#redondo{
+    border-radius: 8px 0 0 0;
+}
+
 .content {
     background-color: #d0e7ff9f;
 }
