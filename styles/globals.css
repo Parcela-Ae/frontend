@@ -42,6 +42,11 @@ th{
   color: #333333;
 }
 
+.pink {
+  border-radius: 5px;
+  color: #333333;
+}
+
 .sideSelect{
   background-color: #A1BFFF;
 }

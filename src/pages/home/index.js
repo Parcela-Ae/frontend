@@ -51,7 +51,6 @@ export default function home() {
                     ref={register({})}
                     onChange={e => setSpecialty(e.target.value)}
                   >
-                    <option value="">Buscar...</option>
                     {specialties.map((item) => (
                       <option key={item.id} value={item.name}> {item.name}</option>
                     ))}
@@ -66,7 +65,6 @@ export default function home() {
                     ref={register({})}
                     onChange={e => setCity(e.target.value)}
                   >
-                    <option value="">Buscar...</option>
                     {cities.map((item) => (
                       <option key={item.name} value={item.name}> {item.name}</option>
                     ))}
@@ -86,6 +84,7 @@ export default function home() {
                 </div>
                 </Link>
               </div>
+              <span className="pink">Escolha a Especialidade e o Local</span>
             </form>
             {/* <div className={styles.keywords}>
                             Ginecologista • Dermatologista • Psiquiatra • Psicólogo • Ortopedista - traumatologista
