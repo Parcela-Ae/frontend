@@ -364,6 +364,30 @@ export default function RegisterClient() {
           </div>
         </div>
 
+        <div className="checkbox-group">
+          <Controller
+            name="checkTerms"
+            control={control}
+            defaultValue={false}
+            rules={{
+              required:
+                'Aceite os termos LGPD para continuar '
+            }}
+            render={(props) => (
+              <input
+                id="checkTerms"
+                type="checkbox"
+                onChange={(e) => props.onChange(e.target.checked)}
+                checked={props.value}
+              />
+            )}
+          />
+          <label htmlFor="checkTerms">
+            Li e concordo com os <a href="/documents/lgpd.pdf" target="_blank"> termos do LGPD</a>
+          </label>
+        </div>
+        {errors.checkTerms && (<span className="error">{errors.checkTerms.message}</span>)}
+
         <div className={styles.inputButton}>
           <div className={styles.input}>
             <a onClick={prevStep} >Voltar</a>

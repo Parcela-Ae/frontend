@@ -109,6 +109,25 @@ th{
   grid-gap: 0.5rem;
 }
 
+.checkbox-group {
+  display: grid;
+  grid-template-columns: 1rem auto;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  justify-content: center;
+  -webkit-align-items: baseline;
+  -moz-box-align: baseline;
+  align-items: baseline;
+  grid-gap: 1rem;
+  margin: 1rem auto auto;
+  max-width: 400px;
+}
+
+.checkbox-group a {
+  color: #325fa2;
+  margin-left: 0.2rem;
+}
+
 /* input{
   outline: none;
   display: block;

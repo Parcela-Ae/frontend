@@ -393,8 +393,6 @@ export default function RegisterClinic() {
 
         </div>
 
-
-
         <div className={styles.input}>
           <label htmlFor="number">Número *</label>
           {errors.number && <span className="error">{errors.number.message}</span>}
@@ -421,6 +419,30 @@ export default function RegisterClinic() {
           <input type="text" id="complement" name="complement" aria-invalid={errors.complement ? "true" : "false"} defaultValue={complement}
             ref={register({})} />
         </div>
+
+        <div className="checkbox-group">
+          <Controller
+            name="checkTerms"
+            control={control}
+            defaultValue={false}
+            rules={{
+              required:
+                'Aceite os termos LGPD para continuar '
+            }}
+            render={(props) => (
+              <input
+                id="checkTerms"
+                type="checkbox"
+                onChange={(e) => props.onChange(e.target.checked)}
+                checked={props.value}
+              />
+            )}
+          />
+          <label htmlFor="checkTerms">
+            Li e concordo com os <a href="/documents/lgpd.pdf" target="_blank"> termos do LGPD</a>
+          </label>
+        </div>
+        {errors.checkTerms && (<span className="error">{errors.checkTerms.message}</span>)}
 
         <div className={styles.inputButton}>
           <div className={styles.input}>
