@@ -1,21 +1,25 @@
 import axios from "axios"
 import { parseCookies } from "nookies";
+import { toast } from 'react-nextjs-toast';
 
-
- 
 const { 'parcelaAe.token': token } = parseCookies()
-let headersNoAxios = {}
+let headersNoAxios = new Headers({
+  "Content-Type": "application/json"
+})
+
+
 if (token) {
-  const headers ={
-    authorization: `Bearer ${token}`
-  }
-  headersNoAxios = headers
+  headersNoAxios.append("authorization", `Bearer ${token}`)
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   
 }
-
 const base = () => {
-  return "http://localhost:8080"
+  switch (process.env.NEXT_PUBLIC_ISLOCAL) {
+		case 'true':
+			return `http://localhost:8080`
+		default:
+			return `https://parcela-ae-app.herokuapp.com`
+	}
 }
 
 const API = {
@@ -47,7 +51,11 @@ const API = {
         result = await response.text()
         return JSON.parse(result)
       } catch (e) {
-        return result
+        toast.notify(e.message, {
+          duration: 5,
+          type: "error",
+          title: "error"
+      })
       }
     })
   },

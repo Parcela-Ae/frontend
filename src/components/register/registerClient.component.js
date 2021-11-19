@@ -383,7 +383,7 @@ export default function RegisterClient() {
             )}
           />
           <label htmlFor="checkTerms">
-            Li e concordo com os <a href="/documents/lgpd.pdf" target="_blank"> termos do LGPD</a>
+            Li e concordo com os <a href="/documents/lgpd.pdf" target="_blank"> termos da LGPD</a> e confirmo que sou maior de 18 anos.
           </label>
         </div>
         {errors.checkTerms && (<span className="error">{errors.checkTerms.message}</span>)}
