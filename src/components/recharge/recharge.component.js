@@ -15,6 +15,8 @@ export default function Recharge() {
   const [installments, setInstallments] = useState([])
 
   function installment(e) {
+    e = e.replace(".", "")
+    e = e.replace(",", ".")
     var installments = []
     var value = 0
     let money = 0
@@ -28,6 +30,16 @@ export default function Recharge() {
       installments.push(money)
     }
     setInstallments(installments)
+  }
+
+  function currency(e) {
+    let value = e.currentTarget.value;
+    value = value.replace(/\D/g, "");
+    // value = value.replace(/(R\$\s)(\D+)(\d{3})((\.\d{3})+\.\d{3}\,\d{2})/, "$1$2.$3$4")
+    // value = value.replace(/(\d)(\d{2})$/, "$1,$2");
+    // value = value.replace(/(?=(\d{3})+(\D))\B/g, ".");
+    e.currentTarget.value = value;
+    return e;
   }
 
   async function onSubmit(data) {
@@ -44,16 +56,13 @@ export default function Recharge() {
     }
     await PaymentService.create(paymant)
       .then(async (e) => {
-
         if (!e) {
-
           toast.notify('Recarga efetuado com sucesso!!', {
             duration: 5,
             type: "success",
             title: "sucesso"
           })
           setIsLoading(false)
-
           window.location.href = '/home'
         } else {
           toast.notify(e.errors[0].message ? e.errors[0].message : "Ocorreu um erro, Já estamos cientes do ocorrido", {
@@ -63,9 +72,7 @@ export default function Recharge() {
           })
           setIsLoading(false)
         }
-
       }).catch((error) => {
-
         toast.notify(error.message, {
           duration: 5,
           type: "error",
@@ -203,6 +210,7 @@ export default function Recharge() {
                     message: "Digite um número válido",
                   },
                 })}
+                onKeyPress={(e) => {currency(e) }}
                 onChange={(e) => { installment(e.target.value) }}
               />
 
