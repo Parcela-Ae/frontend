@@ -8,11 +8,13 @@ import Recharge from "../../components/recharge/recharge.component"
 import Transfer from "../../components/transfer/transfer.component"
 import { Balance } from "../../components/balance/balance.component"
 import { parseCookies } from 'nookies'
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { AuthContext } from '../../contexts/AuthContexts'
 
 
 export default function balance() {
   const [select,Setselect] = useState(1)
+  const { user } = useContext(AuthContext)
 
   return (
     <div className={styles.bg}>
@@ -21,8 +23,8 @@ export default function balance() {
 
           <div className={styles.side}>
             <div className={styles.sideLink}>
-              <a className={select === 1 ? `sideSelect` : ""} onClick={()=>{Setselect(1)}} id={styles.redondo}>Recarga</a>
-              <a className={select === 2 ? `sideSelect` : ""} onClick={()=>{Setselect(2)}}>Saldo</a>
+              {user.typeUser == "CLIENTE" &&(<a className={select === 1 ? `sideSelect` : ""} onClick={()=>{Setselect(1)}} id={styles.redondo}>Recarga</a>)}
+              <a className={select === 2 ? `sideSelect` : ""} id={user.typeUser != "CLIENTE"? styles.redondo : ""} onClick={()=>{Setselect(2)}}>Saldo</a>
               <a className={select === 3 ? `sideSelect` : ""} onClick={()=>{Setselect(3)}} >Histórico</a>
               <a className={select === 4 ? `sideSelect` : ""} onClick={()=>{Setselect(4)}} >Transferencia</a>
             </div>
