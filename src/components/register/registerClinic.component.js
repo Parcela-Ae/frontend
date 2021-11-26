@@ -343,6 +343,7 @@ export default function RegisterClinic() {
         <div className={styles.input}>
           <label htmlFor="cep">CEP *</label>
           {errors.cep && <span className="error">{errors.cep.message}</span>}
+          <a className="link" href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank">não sei meu cep</a>
           <Controller as={InputMask} control={control} onKeyUp={fetchAddressByCEP} defaultValue=""
             inputRef={register({})}
             mask="99999-999" maskChar="" id="cep" name="cep" aria-invalid={errors.cep ? "true" : "false"}
