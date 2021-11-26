@@ -27,6 +27,7 @@ export default function Search({ specialties, cities }) {
               ref={register({})}
               onChange={e => setSpecialty(e.target.value)}
             >
+              <option value="">Buscar...</option>
               {specialties.map((item) => (
                 <option key={item.id} value={item.name}> {item.name}</option>
               ))}
@@ -41,6 +42,7 @@ export default function Search({ specialties, cities }) {
               ref={register({})}
               onChange={e => setCity(e.target.value)}
             >
+              <option value="">Buscar...</option>
               {cities.map((item) => (
                 <option key={item.name} value={item.name}> {item.name}</option>
               ))}

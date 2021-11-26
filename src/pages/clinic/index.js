@@ -11,6 +11,8 @@ import Search from '../../components/search/search.component'
 export default function clinic({specialties, cities}) {
   const router = useRouter()
   const [clinic, setClinic] = useState([])
+  const [empty, setEmpty] = useState()
+  const [emptySpecialty, setemptySpecialty] = useState()
   const {
     query: { specialty, city }
   } = router
@@ -22,17 +24,25 @@ export default function clinic({specialties, cities}) {
         type: "error",
         title: "error!"
       })
-      setTimeout(() => {
-        window.location.href = '/home'
-      },5000)  
+      setemptySpecialty(true)
+      setEmpty(false)
     } else {
       const param = {
         name: "",
         specialty: specialty,
         city: city
       }
-      setClinic(await ClinicService.findClinicSearch(param))
-
+      await ClinicService.findClinicSearch(param).then((clinic) => {
+        if (clinic.length != 0){
+          setClinic(clinic)
+          setEmpty(false)
+          setemptySpecialty(false)
+        }  
+        else {
+          setEmpty(true)
+          setemptySpecialty(false)
+        }
+      })
     }
   }, [])
 
@@ -43,31 +53,45 @@ export default function clinic({specialties, cities}) {
         type: "error",
         title: "error!"
       })
-      setTimeout(() => {
-        window.location.href = '/home'
-      },5000)  
+      setemptySpecialty(true)
+      setEmpty(false)
     } else {
       const param = {
         name: "",
         specialty: specialty,
         city: city
       }
-      setClinic(await ClinicService.findClinicSearch(param))
+      await ClinicService.findClinicSearch(param).then((clinic) => {
+        if (clinic.length != 0){
+          setClinic(clinic)
+          setEmpty(false)
+          setemptySpecialty(false)
+        }  
+        else {
+          setEmpty(true)
+          setemptySpecialty(false)
+        }
+      })
     }
-   }, [city,specialty])
+  }, [city, specialty])
   return (
 
     <div className={styles.container}>
-       <Search specialties={specialties} cities={cities} />
+      <Search specialties={specialties} cities={cities} />
       <h2>{specialty}, {city}</h2>
       <div className={styles.content}>
-     
-        {clinic.map((item) => (
+
+        {(!emptySpecialty && !empty) && clinic.map((item) => (
           <ClinicItem key={item.id} clinic={item} />
         ))}
-        {clinic.length === 0 && (
+        {empty && (
           <div className={styles.clinic}>
             <h1>Nenhuma clinica encontrada</h1>
+          </div>
+        )}
+        {emptySpecialty && (
+          <div className={styles.clinic}>
+            <h1>Especialidade não pode ser vazia !!</h1>
           </div>
         )}
       </div>
@@ -91,6 +115,6 @@ export async function getServerSideProps(ctx) {
   let cities = await ClinicService.findAllCities()
   let specialties = await ClinicService.findAllSpecialties()
   return {
-    props: {specialties, cities}
+    props: { specialties, cities }
   }
 }

@@ -1,21 +1,10 @@
 import { parseCookies } from 'nookies'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import styles from '../../../styles/Home.module.css'
 import { Footer } from '../../components/footer/footer.component'
 import Search from '../../components/search/search.component'
 import ClinicService from '../../services/clinic.service'
 
 export default function home({specialties, cities}) {
-  const { register, handleSubmit, control, errors, watch, trigger } = useForm()
-  // const [specialties, setSpecialties] = useState([])
-  // const [cities, setCities] = useState([])
-
-  // useEffect(async () => {
-  //   setSpecialties(await ClinicService.findAllSpecialties())
-  //   setCities(await ClinicService.findAllCities())
-  // }, [])
-
 
   return (
     <div className={styles.container}>
