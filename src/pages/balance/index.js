@@ -17,7 +17,7 @@ export default function balance() {
   const { user } = useContext(AuthContext)
 
   useEffect(()=>{
-    if(user.typeUser == "CLINICA"){
+    if(user?.typeUser == "CLINICA"){
       Setselect(2)
     }
   },[])
@@ -29,8 +29,8 @@ export default function balance() {
 
           <div className={styles.side}>
             <div className={styles.sideLink}>
-              {user.typeUser == "CLIENTE" &&(<a className={select === 1 ? `sideSelect` : ""} onClick={()=>{Setselect(1)}} id={styles.redondo}>Recarga</a>)}
-              <a className={select === 2 ? `sideSelect` : ""} id={user.typeUser != "CLIENTE"? styles.redondo : ""} onClick={()=>{Setselect(2)}}>Saldo</a>
+              {user?.typeUser == "CLIENTE" &&(<a className={select === 1 ? `sideSelect` : ""} onClick={()=>{Setselect(1)}} id={styles.redondo}>Recarga</a>)}
+              <a className={select === 2 ? `sideSelect` : ""} id={user?.typeUser != "CLIENTE"? styles.redondo : ""} onClick={()=>{Setselect(2)}}>Saldo</a>
               <a className={select === 3 ? `sideSelect` : ""} onClick={()=>{Setselect(3)}} >Histórico</a>
               <a className={select === 4 ? `sideSelect` : ""} onClick={()=>{Setselect(4)}} >Transferencia</a>
             </div>
