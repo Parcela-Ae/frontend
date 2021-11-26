@@ -8,13 +8,19 @@ import Recharge from "../../components/recharge/recharge.component"
 import Transfer from "../../components/transfer/transfer.component"
 import { Balance } from "../../components/balance/balance.component"
 import { parseCookies } from 'nookies'
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AuthContext } from '../../contexts/AuthContexts'
 
 
 export default function balance() {
   const [select,Setselect] = useState(1)
   const { user } = useContext(AuthContext)
+
+  useEffect(()=>{
+    if(user.typeUser == "CLINICA"){
+      Setselect(2)
+    }
+  },[])
 
   return (
     <div className={styles.bg}>
