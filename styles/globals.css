@@ -128,6 +128,13 @@ th{
   margin-left: 0.2rem;
 }
 
+.link{
+  color: #325fa2 !important;
+  background:none !important;
+  display: inline !important;
+  margin: 0 !important;
+}
+
 /* input{
   outline: none;
   display: block;
