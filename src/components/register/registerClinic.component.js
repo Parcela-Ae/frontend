@@ -79,6 +79,13 @@ export default function RegisterClinic() {
           }
           await signIn(login)
 
+        } else if (e.errors[0].message) {
+          toast.notify(e.errors[0].message ? e.errors[0].message : "Ocorreu um erro, Já estamos cientes do ocorrido", {
+            duration: 5,
+            type: "error",
+            title: "error"
+          })
+          setIsLoading(false)
         } else {
           toast.notify(e.message ? e.message : "Ocorreu um erro, Já estamos cientes do ocorrido", {
             duration: 5,
@@ -87,7 +94,6 @@ export default function RegisterClinic() {
           })
           setIsLoading(false)
         }
-
       }).catch((error) => {
         toast.notify(error.message, {
           duration: 5,
