@@ -12,6 +12,7 @@ export default function Transfer() {
 	const [isLoading, setIsLoading] = useState(false)
 
 	async function onSubmit(data) {
+		data.cpf = data.cpf.replace(/[\W_]/g, '')
 		setIsLoading(true)
 		const paymant = {
 			"accountNumberOrigin": user?.accountNumber,
@@ -84,7 +85,7 @@ export default function Transfer() {
 						<div className={styles.input}>
 							<Controller
 								inputRef={register({})}
-								placeholder="Valor da recarga*"
+								placeholder="Valor da Transferencia*"
 								as={InputMask}
 								control={control}
 								maskChar=""
