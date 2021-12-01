@@ -5,6 +5,7 @@ import { toast } from 'react-nextjs-toast';
 import PaymentService from '../../services/payment.service';
 import { AuthContext } from '../../contexts/AuthContexts';
 import { useForm } from 'react-hook-form';
+import moment from 'moment';
 
 Modal.setAppElement("#__next");
 
@@ -23,17 +24,41 @@ export default function ClinicItem({ clinic }) {
   const { register, handleSubmit, control, errors, watch } = useForm()
   const { user } = useContext(AuthContext)
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [value, setValue] = useState()
+  const [hour, setHour] = useState()
+  const [date, setDate] = useState()
 
+  let now = moment()
+  now = moment(now).format('YYYY-MM-DD')
+  let hours = []
+  for (let i = 8; i <= 19; i++) {
+    hours.push(i)
+  }
 
-  function btnClick(v) {
-    setValue(v)
-    setModalIsOpen(true)
+  function btnClick(hour) {
+    let appointment = moment(date, 'YYYY-MM-DD', true)
+    let teste = appointment.diff(now)
 
+    if (!date) {
+      toast.notify("A data não pode ser vazia", {
+        duration: 5,
+        type: "error",
+        title: "error !!"
+      })
+    } else if (teste <= 0) {
+      toast.notify("A data não pode ser menor ou igual a hoje", {
+        duration: 5,
+        type: "error",
+        title: "error !!"
+      })
+    } else {
+      setHour(hour)
+      setDate(moment(appointment).format('DD/MM/YYYY'))
+      setModalIsOpen(true)
+    }
   }
 
   function loadDate(v) {
-    console.log(v);
+    setDate(v)
 
   }
   async function appointment() {
@@ -96,7 +121,10 @@ export default function ClinicItem({ clinic }) {
             <div>
               <span>endereço:</span>
               <p>
-                {clinic?.addresses[0].publicArea}, Nº{clinic?.addresses[0].number}, {clinic?.addresses[0].complement}, {clinic?.addresses[0].neighborhood}, {clinic?.addresses[0].state}
+                {clinic?.addresses[0].publicArea}, Nº{clinic?.addresses[0].number}, {clinic?.addresses[0].complement}
+              </p>
+              <p>
+                {clinic?.addresses[0].city}, {clinic?.addresses[0].state}
               </p>
 
             </div>
@@ -111,93 +139,41 @@ export default function ClinicItem({ clinic }) {
           </div>
           <div >
             <div className="input">
-            <label htmlFor="birthdate">
-									Data de agendamento 
-								</label>
-								<input
-									type="date"
-									aria-invalid={
-										errors.birthdate ? 'true' : 'false'
-									}
-									id="birthdate"
-									name="birthdate"
-									ref={register({
-										required: 'Campo obrigatório',
-										minLength: {
-											value: 8
-										},
-									})}
-                  onChange={(e) => { loadDate(e.target.value) }}
-								/>
-								{errors.birthdate && (
-									<span className="error">
-										{errors.birthdate.message}
-									</span>
-								)}
+              <label htmlFor="birthdate">
+                Data de agendamento
+              </label>
+              <input
+                type="date"
+                aria-invalid={
+                  errors.birthdate ? 'true' : 'false'
+                }
+                min={now}
+                id="date"
+                name="date"
+                ref={register({
+                  required: 'Campo obrigatório',
+                  minLength: {
+                    value: 8
+                  },
+                })}
+                onChange={(e) => { loadDate(e.target.value) }}
+              />
+              {errors.birthdate && (
+                <span className="error">
+                  {errors.birthdate.message}
+                </span>
+              )}
             </div>
             <span>Horário disponível</span>
-            <div className="btngrid">
-            <div className="input" >
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  08:00
-                </button>
-              </div>
-              <div className="input" >
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  09:00
-                </button>
-              </div>
-              <div className="input" >
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  10:00
-                </button>
-              </div>
-              <div className="input" >
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  11:00
-                </button>
-              </div>
-              <div className="input" >
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  12:00
-                </button>
-              </div>
-              <div className="input" >
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  13:00
-                </button>
-              </div>
-              <div className="input">
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  14:00
-                </button>
-              </div>
-              <div className="input">
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  15:00
-                </button>
-              </div>
-              <div className="input">
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  16:00
-                </button>
-              </div>
-              <div className="input">
-                <button value="17:00" onClick={(e) => { btnClick(e.target.value) }}>
-                  17:00
-                </button>
-              </div>
-              <div className="input">
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  18:00
-                </button>
-              </div>
-              <div className="input" >
-                <button onClick={(e) => { btnClick(e.target.value) }}>
-                  19:00
-                </button>
-              </div>
-
+            <div  className="btngrid">
+              {hours.map((item) => (
+                <div key={item} className="input" >
+                  <button value={`${item}:00`} onClick={(e) => { btnClick(e.target.value) }}>
+                    {item}:00
+                  </button>
+                </div>
+              ))}
+        
             </div>
           </div>
         </div>
@@ -209,7 +185,10 @@ export default function ClinicItem({ clinic }) {
         <h1>Gostaria de Marcar nesse horario?</h1>
         <div>
           <p>
-            Preço: 150 creditos
+          <strong>Preço:</strong> 150 creditos
+          </p>
+          <p>
+            <strong>Data:</strong> {date}  <strong>Horario:</strong> {hour}
           </p>
         </div>
         <div className="btngrid2">
