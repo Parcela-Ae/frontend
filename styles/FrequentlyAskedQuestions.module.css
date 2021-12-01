@@ -6,20 +6,17 @@
   }
   
   .duvidas_title {
-    margin: 0 0 15px 15px;
+    margin: 0 0 15px 0;
   }
   
   .descricao_duvida {
     font-weight: lighter;
     color: #333333;
+    padding: 5px 0 15px 0;
   }
 .container {
     display:grid;
     grid-template-columns: 1fr 1fr;
-}
-
-.content  h5{
-    margin-bottom: 0.8rem;
 }
 
 @media screen and (max-width: 400px){
