@@ -31,6 +31,7 @@ export default function ClinicItem({ clinic }) {
   now = moment(now).format('YYYY-MM-DD')
   let hours = []
   for (let i = 8; i <= 19; i++) {
+    i = (i <= 9 ? "0"+i : i )
     hours.push(i)
   }
 
@@ -52,7 +53,6 @@ export default function ClinicItem({ clinic }) {
       })
     } else {
       setHour(hour)
-      setDate(moment(appointment).format('DD/MM/YYYY'))
       setModalIsOpen(true)
     }
   }
@@ -188,7 +188,7 @@ export default function ClinicItem({ clinic }) {
           <strong>Preço:</strong> 150 creditos
           </p>
           <p>
-            <strong>Data:</strong> {date}  <strong>Horario:</strong> {hour}
+            <strong>Data:</strong> {moment(date).format('DD/MM/YYYY')}  <strong>Horario:</strong> {hour}
           </p>
         </div>
         <div className="btngrid2">
