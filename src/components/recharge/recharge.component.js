@@ -103,7 +103,7 @@ export default function Recharge() {
                 rules={{
                   minLength: {
                     value: 13,
-                    message: "Tamanho mínimo de 13 dígitos"
+                    message: "CPF inválido"
                   },
                   required: "Obrigatório",
                   pattern: {
@@ -154,7 +154,7 @@ export default function Recharge() {
                 rules={{
                   minLength: {
                     value: 5,
-                    message: "Tamanho mínimo de 4 dígitos"
+                    message: "O valor deve serguir o padrão MM/AA"
                   },
                   required: "Obrigatório",
                   pattern: {
@@ -182,7 +182,7 @@ export default function Recharge() {
                 rules={{
                   minLength: {
                     value: 3,
-                    message: "Tamanho mínimo de 3 dígitos"
+                    message: "CVV deve conter ao menos 3 dígitos"
                   },
                   required: "Obrigatório",
                   pattern: {
