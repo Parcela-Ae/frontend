@@ -60,6 +60,31 @@ const API = {
     })
   },
 
+  put: async (path = '', params = {}, isJson = true) => {
+    return await doRequest(path, async () => {
+      debugger
+      const url = base() + path
+      const method = 'PUT'
+      const body = isJson ? JSON.stringify(params) : params
+      let result = null
+      console.log(headersNoAxios)
+      const response = await fetch(url, {
+        method, headers: headersNoAxios, body
+      })
+
+      try {
+        result = await response.text()
+        return JSON.parse(result)
+      } catch (e) {
+        toast.notify(e.message, {
+          duration: 5,
+          type: "error",
+          title: "error"
+      })
+      }
+    })
+  },
+
   patch: async (path = '', value = '') => {
 
     const url = base() + path
@@ -82,27 +107,7 @@ const API = {
     }
   },
 
-  put: async (path = '', value = '') => {
-
-    const url = base() + path
-    const method = 'PUT'
-    const body = JSON.stringify(value)
-    let result = null
-
-    const response = await fetch(url, {
-      method, headers: headersNoAxios, body
-    })
-
-    try {
-      if (response.status != 200) {
-        return response
-      }
-      result = await response.text()
-      return JSON.parse(result)
-    } catch (e) {
-      return result
-    }
-  },
+  
 
   delete: async (path = '', value = {}) => {
     const url = base() + path

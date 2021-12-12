@@ -8,6 +8,30 @@
   margin: 0;
 }
 
+.bg {
+  background: #DEF7F6;
+  height: auto;
+}
+
+.main {
+
+  padding: 50px 0px;
+}
+
+.container-box {
+  margin: 0 auto;
+  max-width: 1140px;
+  height: auto;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 5px rgb(0 0 0 / 50%);
+  box-shadow: 0 0 5px rgb(0 0 0 / 50%);
+  background-color: #d0e7ff9f;
+}
+
+.container-box h1 {
+  text-align: center;
+}
+
 a {
   text-decoration: none;
 }
@@ -31,7 +55,7 @@ h4 {
   font-weight: lighter;
 }
 
-th{
+th {
   text-align: initial;
 }
 
@@ -47,63 +71,63 @@ th{
   color: #333333;
 }
 
-.sideSelect{
+.sideSelect {
   background-color: #A1BFFF;
 }
 
-.error{
+.error {
   color: rgba(246, 51, 51, 0.863);
   font-size: 0.8rem;
 }
 
-.select button{
-  background-color:#01093a !important ;
+.select button {
+  background-color: #01093a !important;
 }
 
-.checkboxDiv{
+.checkboxDiv {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-.centralizar{
+.centralizar {
   padding-left: 1rem;
 }
 
 .input input,
-  .input select, .input button  {
-    outline: none;
-    width: 100%;
-    border: 0;
-    border-radius: 4px;
-    box-sizing: border-box;
-    padding: 12px 20px;
-    color: rgba(0, 0, 0, 0.6);
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: 500;
-    line-height: inherit;
-    -webkit-transition: 0.3s ease;
-    transition: 0.3s ease;
-  }
-  
-  .input button {
-    cursor: pointer;
-    background-color:#425ef8 ;
-    color: white;  
-  }
-  
-  .input button:hover{
-    background-color:#142585 ;
-    color: white;
-  }
+.input select, .input button {
+  outline: none;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 12px 20px;
+  color: rgba(0, 0, 0, 0.6);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
 
-.btngrid{
+.input button {
+  cursor: pointer;
+  background-color: #425ef8;
+  color: white;
+}
+
+.input button:hover {
+  background-color: #142585;
+  color: white;
+}
+
+.btngrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 0.5rem;
 }
 
-.btngrid2{
+.btngrid2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 0.5rem;
@@ -128,12 +152,31 @@ th{
   margin-left: 0.2rem;
 }
 
-.link{
+.link {
   color: #325fa2 !important;
-  background:none !important;
+  background: none !important;
   display: inline !important;
   margin: 0 !important;
 }
+
+.display-block{
+  display: block;
+}
+
+.inputDiv {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  grid-gap: 1rem;
+}
+
+.inputSearch{
+  justify-content: center;
+}
+
+.inputSearch span {
+  margin-left: 1rem;
+}
+
 
 /* input{
   outline: none;

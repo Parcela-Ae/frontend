@@ -6,6 +6,7 @@ import PaymentService from '../../services/payment.service';
 import { AuthContext } from '../../contexts/AuthContexts';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
+import SchedulesService from '../../services/schedules.service';
 
 Modal.setAppElement("#__next");
 
@@ -20,25 +21,32 @@ const customStyles = {
   },
 };
 
-export default function ClinicItem({ clinic }) {
+export default function ClinicItem({ clinic, specialty }) {
   const { register, handleSubmit, control, errors, watch } = useForm()
   const { user } = useContext(AuthContext)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [hour, setHour] = useState()
   const [date, setDate] = useState()
+  const [clinicSpecialty, setClinicSpecialty] =  useState()
 
   let now = moment()
   now = moment(now).format('YYYY-MM-DD')
   let hours = []
   for (let i = 8; i <= 19; i++) {
-    i = (i <= 9 ? "0"+i : i )
+    i = (i <= 9 ? "0" + i : i)
     hours.push(i)
   }
 
   function btnClick(hour) {
     let appointment = moment(date, 'YYYY-MM-DD', true)
     let teste = appointment.diff(now)
-
+    const filtro = clinic?.specialties?.filter((item) => (item?.name?.includes(specialty)))
+    setClinicSpecialty(filtro[0])
+    
+    // teste
+    let teste1= moment(date+" "+hour).format('DD/MM/YYYY HH:mm')
+    console.log(teste1)
+    
     if (!date) {
       toast.notify("A data não pode ser vazia", {
         duration: 5,
@@ -59,16 +67,22 @@ export default function ClinicItem({ clinic }) {
 
   function loadDate(v) {
     setDate(v)
-
   }
+
   async function appointment() {
+    
+
     const paymant = {
       "accountNumberOrigin": user?.accountNumber,
       "cpfCnpj": clinic?.cnpj,
-      "value": 150,
-      "type": "PAYMENT"
+      "type": "PAYMENT",
+      "customerId": user?.id,
+      "clinicId": clinic.id,
+      "value": clinicSpecialty.appointmentValue,
+      "specialtyId": clinicSpecialty.id,
+      "scheduledTo": "2021-12-31T23:59:59"
     }
-    PaymentService.create(paymant)
+    SchedulesService.create(paymant)
       .then(async (e) => {
 
         if (!e) {
@@ -165,7 +179,7 @@ export default function ClinicItem({ clinic }) {
               )}
             </div>
             <span>Horário disponível</span>
-            <div  className="btngrid">
+            <div className="btngrid">
               {hours.map((item) => (
                 <div key={item} className="input" >
                   <button value={`${item}:00`} onClick={(e) => { btnClick(e.target.value) }}>
@@ -173,7 +187,7 @@ export default function ClinicItem({ clinic }) {
                   </button>
                 </div>
               ))}
-        
+
             </div>
           </div>
         </div>
@@ -185,7 +199,7 @@ export default function ClinicItem({ clinic }) {
         <h1>Gostaria de Marcar nesse horario?</h1>
         <div>
           <p>
-          <strong>Preço:</strong> 150 creditos
+            <strong>Preço:</strong> {clinicSpecialty?.appointmentValue} creditos
           </p>
           <p>
             <strong>Data:</strong> {moment(date).format('DD/MM/YYYY')}  <strong>Horario:</strong> {hour}

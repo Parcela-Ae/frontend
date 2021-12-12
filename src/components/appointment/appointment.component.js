@@ -1,41 +1,51 @@
 import { useContext, useEffect, useState } from 'react'
 import styles from '../../../styles/historic.module.css'
 import { AuthContext } from '../../contexts/AuthContexts'
-import PaymentService from '../../services/payment.service'
+import SchedulesService from '../../services/schedules.service'
 
 export default function Appointment() {
   const { user } = useContext(AuthContext)
-  const [transaction, setTransaction] = useState([])
+  const [appointment, setAppointment] = useState([])
 
   useEffect(async () => {
-    setTransaction(await PaymentService.findAllTransaction(user?.id))
+    if (user) {
+      if (user?.typeUser == "CLINICA")
+        setAppointment(await SchedulesService.findbyClinic(user?.id))
+      else
+        setAppointment(await SchedulesService.findbyClient(user?.id))
+    }
 
-  }, [])
+  }, [user])
   return (
-    <div className={styles.historic}>
-      <div className={styles.content}>
-        <table>
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Clinica</th>
-              <th>Data</th>
-              <th>Valor</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transaction?.map((item) => (
-              <tr key={item.id}>
-                <th>{ item.id}</th>
-                <th>{item?.clinica}</th>
-                <td>{item.operationDate}</td>
-                <td>{item.type}</td>
-                <td>R$ {item.value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div className="bg">
+      <main className="main">
+        <div className="container-box">
+          <div className={styles.historic}>
+            <div className={styles.content}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Clinica</th>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {appointment?.map((item, index) => (
+                    <tr key={index}>
+                      <th>{item?.clinic?.name}</th>
+                      <td>{item?.scheduledTo} {item?.appointmentTime}</td>
+                      <td>{item?.specialty?.name}</td>
+                      <td>{item?.appointmentValue}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main >
     </div>
   )
 }

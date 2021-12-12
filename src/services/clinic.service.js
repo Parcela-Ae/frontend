@@ -11,6 +11,13 @@ const ClinicService = {
 	existEmail: async (email = "") => {      
 		return API.get(`/clinics/email/${email}`)
 	},
+	findForClinicSpecialties: async (clinicId) => {      
+		return API.get(`/clinics/${clinicId}/specialties`)
+	},
+
+	changeForClinicSpecialties: async (clinicId, specialties) => {      
+		return API.post(`/clinics/${clinicId}/specialties`, specialties)
+	},
 	findAllSpecialties: async () => {      
 		return API.get(`/specialties`)
 	},

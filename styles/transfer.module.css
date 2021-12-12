@@ -17,7 +17,7 @@
 }
 
 .input input,
-.input select, .input button  {
+.input select, .input button, .input a  {
   outline: none;
   width: 100%;
   border: 0;
@@ -34,14 +34,24 @@
   margin: 0.5rem;
 }
 
-.input button {
-  cursor: pointer;
-  background-color:#425ef8 ;
-  color: white;  
+.input a {
+  display: block;
+  text-align: center;
 }
 
-.input button:hover{
-  background-color:#142585 ;
+.input div {
+  margin-bottom: 1rem;
+}
+
+.input button, .input a {
+  cursor: pointer;
+  background-color: #425ef8;
+  color: white;
+  margin: 0.5rem;
+}
+
+.input button:hover, .input a:hover {
+  background-color: #142585;
   color: white;
 }
   

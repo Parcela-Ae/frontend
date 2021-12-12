@@ -82,7 +82,7 @@ export default function clinic({specialties, cities}) {
       <div className={styles.content}>
 
         {(!emptySpecialty && !empty) && clinic.map((item) => (
-          <ClinicItem key={item.id} clinic={item} />
+          <ClinicItem key={item.id} clinic={item} specialty={specialty} />
         ))}
         {empty && (
           <div className={styles.clinic}>

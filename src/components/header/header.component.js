@@ -38,6 +38,7 @@ export function Header() {
                             <li className={styles.navContainerListItem}><Link href="/home">Home</Link></li>
                             <li className={styles.navContainerListItem}><Link href="/balance">Meus Créditos</Link></li>
                             <li className={styles.navContainerListItem}><Link href="/appointment">Agendamentos</Link></li>
+                            {user.typeUser == "CLINICA" &&(<li className={styles.navContainerListItem}><Link href="/specialties">Especializações</Link></li>)}
                             <li className={`${styles.navContainerListItem} pink_bg`}>Olá, {user.name.split(' ')[0]}</li>
                             <li className={styles.navContainerListItem}><a href="#" onClick={()=>setModalIsOpen(true)}>Sair</a></li>
                         </>
