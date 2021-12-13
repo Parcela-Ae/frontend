@@ -36,7 +36,10 @@ export function AuthProvider({ children }) {
           type: "success",
           title: "sucesso"
         })
-        window.location.href = '/home'
+        if (userdto.typeUser == "CLIENTE")
+          window.location.href = '/home'
+        else
+          window.location.href = '/appointment'
       } else {
         toast.notify('Usuario ou senha invalida', {
           duration: 5,

@@ -1,10 +1,21 @@
 import { parseCookies } from 'nookies'
+import { useContext, useEffect } from 'react'
 import styles from '../../../styles/Home.module.css'
 import { Footer } from '../../components/footer/footer.component'
 import Search from '../../components/search/search.component'
+import { AuthContext } from '../../contexts/AuthContexts'
 import ClinicService from '../../services/clinic.service'
 
 export default function home({specialties, cities}) {
+  const { user } = useContext(AuthContext)
+
+  useEffect(() => {
+    if(user){
+      if(user?.typeUser != "CLIENTE")
+        window.location.href = '/appointment'
+    }
+    
+	}, [user])
 
   return (
     <div className={styles.container}>

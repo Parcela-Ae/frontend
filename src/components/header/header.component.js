@@ -35,7 +35,7 @@ export function Header() {
                     )}
                     {isAuthenticade && (
                         <>  
-                            <li className={styles.navContainerListItem}><Link href="/home">Home</Link></li>
+                            {user.typeUser == "CLIENTE" &&<li className={styles.navContainerListItem}><Link href="/home">Home</Link></li>}
                             <li className={styles.navContainerListItem}><Link href="/balance">Meus Créditos</Link></li>
                             <li className={styles.navContainerListItem}><Link href="/appointment">Agendamentos</Link></li>
                             {user.typeUser == "CLINICA" &&(<li className={styles.navContainerListItem}><Link href="/specialties">Especializações</Link></li>)}

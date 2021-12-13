@@ -1,5 +1,5 @@
 import { parseCookies } from 'nookies'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from '../../../styles/clinic.module.css'
 import ClinicItem from '../../components/clinic/clinicItem.component'
 import { Footer } from '../../components/footer/footer.component'
@@ -7,9 +7,11 @@ import { useRouter } from "next/router"
 import ClinicService from '../../services/clinic.service'
 import { toast } from 'react-nextjs-toast'
 import Search from '../../components/search/search.component'
+import { AuthContext } from '../../contexts/AuthContexts'
 
-export default function clinic({specialties, cities}) {
+export default function clinic({ specialties, cities }) {
   const router = useRouter()
+  const { user } = useContext(AuthContext)
   const [clinic, setClinic] = useState([])
   const [empty, setEmpty] = useState()
   const [emptySpecialty, setemptySpecialty] = useState()
@@ -18,33 +20,41 @@ export default function clinic({specialties, cities}) {
   } = router
 
   useEffect(async () => {
-    if (!specialty || (!specialty && !city)) {
-      toast.notify('Especialidade não pode ser vazia !!', {
-        duration: 5,
-        type: "error",
-        title: "error!"
-      })
-      setemptySpecialty(true)
-      setEmpty(false)
-    } else {
-      const param = {
-        name: "",
-        specialty: specialty,
-        city: city
-      }
-      await ClinicService.findClinicSearch(param).then((clinic) => {
-        if (clinic.length != 0){
-          setClinic(clinic)
+    if (user) {
+      if (user?.typeUser != "CLIENTE") {
+        window.location.href = '/appointment'
+      } else {
+        if (!specialty || (!specialty && !city)) {
+          toast.notify('Especialidade não pode ser vazia !!', {
+            duration: 5,
+            type: "error",
+            title: "error!"
+          })
+          setemptySpecialty(true)
           setEmpty(false)
-          setemptySpecialty(false)
-        }  
-        else {
-          setEmpty(true)
-          setemptySpecialty(false)
+        } else {
+          const param = {
+            name: "",
+            specialty: specialty,
+            city: city
+          }
+          await ClinicService.findClinicSearch(param).then((clinic) => {
+            if (clinic.length != 0) {
+              setClinic(clinic)
+              setEmpty(false)
+              setemptySpecialty(false)
+            }
+            else {
+              setEmpty(true)
+              setemptySpecialty(false)
+            }
+          })
         }
-      })
+      }
+
     }
-  }, [])
+
+  }, [user])
 
   useEffect(async () => {
     if (!specialty || (!specialty && !city)) {
@@ -62,11 +72,11 @@ export default function clinic({specialties, cities}) {
         city: city
       }
       await ClinicService.findClinicSearch(param).then((clinic) => {
-        if (clinic.length != 0){
+        if (clinic.length != 0) {
           setClinic(clinic)
           setEmpty(false)
           setemptySpecialty(false)
-        }  
+        }
         else {
           setEmpty(true)
           setemptySpecialty(false)
