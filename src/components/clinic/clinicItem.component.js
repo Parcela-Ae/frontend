@@ -43,9 +43,6 @@ export default function ClinicItem({ clinic, specialty }) {
     const filtro = clinic?.specialties?.filter((item) => (item?.name?.includes(specialty)))
     setClinicSpecialty(filtro[0])
     
-    // teste
-    let teste1= moment(date+" "+hour).format('DD/MM/YYYY HH:mm')
-    console.log(teste1)
     
     if (!date) {
       toast.notify("A data não pode ser vazia", {
@@ -70,7 +67,8 @@ export default function ClinicItem({ clinic, specialty }) {
   }
 
   async function appointment() {
-    
+    let dateformat= new Date(date+" "+hour)
+    dateformat = new Date(dateformat.toString().split('GTM')[0]+'UTC').toISOString()
 
     const paymant = {
       "accountNumberOrigin": user?.accountNumber,
@@ -80,7 +78,7 @@ export default function ClinicItem({ clinic, specialty }) {
       "clinicId": clinic.id,
       "value": clinicSpecialty.appointmentValue,
       "specialtyId": clinicSpecialty.id,
-      "scheduledTo": "2021-12-31T23:59:59"
+      "scheduledTo": dateformat
     }
     SchedulesService.create(paymant)
       .then(async (e) => {
