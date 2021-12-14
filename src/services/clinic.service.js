@@ -8,13 +8,15 @@ const ClinicService = {
 	existCpf: async (cpf) => {
 		return API.get(`/clinics/cpf/${cpf}`)
 	},
+	findClinic: async (clinicId) => {
+		return API.get(`/clinics/${clinicId}`)
+	},
 	existEmail: async (email = "") => {      
 		return API.get(`/clinics/email/${email}`)
 	},
 	findForClinicSpecialties: async (clinicId) => {      
 		return API.get(`/clinics/${clinicId}/specialties`)
 	},
-
 	changeForClinicSpecialties: async (clinicId, specialties) => {      
 		return API.post(`/clinics/${clinicId}/specialties`, specialties)
 	},
