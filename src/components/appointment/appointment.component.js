@@ -6,13 +6,18 @@ import SchedulesService from '../../services/schedules.service'
 export default function Appointment() {
   const { user } = useContext(AuthContext)
   const [appointment, setAppointment] = useState([])
+  let [isClinic, setIsClinic] = useState(false)
 
   useEffect(async () => {
     if (user) {
-      if (user?.typeUser == "CLINICA")
+      if (user?.typeUser == "CLINICA") {
         setAppointment(await SchedulesService.findbyClinic(user?.id))
-      else
+        setIsClinic(true);
+      }
+      else {
         setAppointment(await SchedulesService.findbyClient(user?.id))
+        setIsClinic(false);
+      }
     }
 
   }, [user])
@@ -25,7 +30,11 @@ export default function Appointment() {
               <table>
                 <thead>
                   <tr>
-                    <th>Clinica</th>
+                    {isClinic ? (
+                      <th>Cliente</th>
+                    ) : (
+                      <th>Clínica</th>
+                    )}
                     <th>Data</th>
                     <th>Tipo</th>
                     <th>Valor</th>
@@ -34,7 +43,13 @@ export default function Appointment() {
                 <tbody>
                   {appointment?.map((item, index) => (
                     <tr key={index}>
-                      <th>{item?.clinic?.name}</th>
+
+                      {isClinic ? (
+                        <th>{item?.customer?.name}</th>
+                      ) : (
+                        <th>{item?.clinic?.name}</th>
+                      )}
+
                       <td>{item?.scheduledTo} {item?.appointmentTime}</td>
                       <td>{item?.specialty?.name}</td>
                       <td>{item?.appointmentValue}</td>
